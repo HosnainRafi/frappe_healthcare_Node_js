@@ -572,4 +572,5 @@ Frappe and ERPNext are licensed under GNU GPLv3.
 
 - **v1.0** (January 2026) - Initial release with ERPNext v15 support
 #   f r a p p e _ h e a l t h c a r e  
+ #   f r a p p e - h e a l t h c a r e  
  
