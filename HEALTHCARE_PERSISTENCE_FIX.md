@@ -3,6 +3,7 @@
 ## Problem Description
 
 The Healthcare module keeps getting deleted/removed after Docker container restarts. After running `docker compose restart` or `docker compose up -d`, the Healthcare app disappears and you see:
+
 - "Module Healthcare not found"
 - "The resource you are looking for is not available"
 
@@ -19,6 +20,7 @@ ls -1 apps > sites/apps.txt;
 ```
 
 This command:
+
 1. Lists all apps in the container's `/home/frappe/frappe-bench/apps` directory
 2. **Overwrites** `sites/apps.txt` with that list
 
@@ -69,14 +71,16 @@ Add a persistent volume for the `apps` folder to preserve installed apps across 
 **Changes to docker-compose.yml:**
 
 1. Add `apps` volume to all services that need it:
+
 ```yaml
 volumes:
   - sites:/home/frappe/frappe-bench/sites
   - logs:/home/frappe/frappe-bench/logs
-  - apps:/home/frappe/frappe-bench/apps  # ADD THIS LINE
+  - apps:/home/frappe/frappe-bench/apps # ADD THIS LINE
 ```
 
 2. Add to volumes section:
+
 ```yaml
 volumes:
   db-data:
@@ -85,10 +89,11 @@ volumes:
   redis-socketio-data:
   sites:
   logs:
-  apps:  # ADD THIS LINE
+  apps: # ADD THIS LINE
 ```
 
 3. Modify the configurator command to not overwrite apps.txt:
+
 ```yaml
 command:
   - >
@@ -127,11 +132,13 @@ The `docker-compose.yml` has been updated with:
 ## Commands Reference
 
 ### Check installed apps
+
 ```bash
 docker compose exec backend bench --site all list-apps
 ```
 
 ### Manually install Healthcare (if needed)
+
 ```bash
 docker compose exec backend bench get-app healthcare --branch version-15
 docker compose exec backend bash -c "grep -q healthcare sites/apps.txt || echo 'healthcare' >> sites/apps.txt"
@@ -140,6 +147,7 @@ docker compose exec backend bench --site all migrate
 ```
 
 ### Clear cache after installation
+
 ```bash
 docker compose exec backend bench --site all clear-cache
 docker compose restart
@@ -160,6 +168,7 @@ docker compose restart
 ## Git Best Practices
 
 ### Add to .gitignore
+
 ```
 # Docker volumes data (managed by Docker)
 db-data/
@@ -171,6 +180,7 @@ sites/*/public/files/
 ```
 
 ### Track configuration files
+
 ```bash
 git add docker-compose.yml
 git add install-healthcare.bat
