@@ -9,6 +9,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -23,7 +24,7 @@ services:
       - -c
     command:
       - >
-        ls -1 apps > sites/apps.txt;
+        if [ ! -f sites/apps.txt ]; then ls -1 apps > sites/apps.txt; fi;
         bench set-config -g db_host $$DB_HOST;
         bench set-config -gp db_port $$DB_PORT;
         bench set-config -g redis_cache "redis://$$REDIS_CACHE";
@@ -40,6 +41,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       db:
         condition: service_healthy
@@ -58,6 +60,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     entrypoint:
       - bash
       - -c
@@ -123,6 +126,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     ports:
       - "8080:8080"
     depends_on:
@@ -144,6 +148,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -161,6 +166,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -200,6 +206,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -215,6 +222,7 @@ services:
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
+      - apps:/home/frappe/frappe-bench/apps
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -226,6 +234,7 @@ volumes:
   redis-socketio-data:
   sites:
   logs:
+  apps:
 
 networks:
   default:

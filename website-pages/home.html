@@ -1,0 +1,1269 @@
+<!-- 
+    HEMAYETPUR CENTRAL HOSPITAL - HOMEPAGE
+    Copy this HTML to ERPNext Web Page (Content Type: HTML)
+-->
+
+<style>
+  /* ========================================
+   GLOBAL STYLES
+======================================== */
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+  .hch-page * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .hch-page {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* ========================================
+   NAVBAR STYLES
+======================================== */
+  .hch-navbar {
+    background: #fff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 10px 0;
+  }
+
+  .hch-navbar .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hch-navbar .logo img {
+    height: 60px;
+  }
+
+  .hch-navbar .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 25px;
+  }
+
+  .hch-navbar .nav-menu li a {
+    color: #0d1b2a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s;
+  }
+
+  .hch-navbar .nav-menu li a:hover,
+  .hch-navbar .nav-menu li a.active {
+    color: #0d6efd;
+  }
+
+  .hch-navbar .nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .hch-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hch-btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    color: #fff;
+  }
+
+  .hch-btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(13, 110, 253, 0.4);
+  }
+
+  .hch-btn-outline {
+    background: transparent;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+  }
+
+  .hch-btn-outline:hover {
+    background: #0d6efd;
+    color: #fff;
+  }
+
+  /* ========================================
+   HERO SECTION
+======================================== */
+  .hch-hero {
+    padding: 140px 0 80px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hch-hero .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .hch-hero-content {
+    flex: 1;
+  }
+
+  .hch-hero-content .experience-badge {
+    display: inline-block;
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .hch-hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #0d1b2a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .hch-hero-content p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+
+  .hch-hero-image {
+    flex: 1;
+    position: relative;
+  }
+
+  .hch-hero-image img {
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hch-hero-image .circle-bg {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    border-radius: 50%;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  /* Doctor Cards on Hero */
+  .hch-doctor-card {
+    position: absolute;
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+  }
+
+  .hch-doctor-card.contact-card {
+    bottom: 20%;
+    left: -30px;
+  }
+
+  .hch-doctor-card .icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .hch-doctor-card .icon i {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .hch-doctor-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: #0d1b2a;
+  }
+
+  .hch-doctor-card p {
+    font-size: 13px;
+    color: #666;
+    margin: 5px 0 0;
+  }
+
+  /* ========================================
+   DOCTORS SECTION
+======================================== */
+  .hch-section {
+    padding: 80px 0;
+  }
+
+  .hch-section .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .hch-section-title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .hch-section-title span {
+    color: #0d6efd;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hch-section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-top: 10px;
+  }
+
+  .hch-doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .hch-doctor-box {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .hch-doctor-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .hch-doctor-box .image {
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .hch-doctor-box .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hch-doctor-box .content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hch-doctor-box .content span {
+    color: #666;
+    font-size: 13px;
+  }
+
+  .hch-doctor-box .content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin: 10px 0 0;
+  }
+
+  /* ========================================
+   EASY SOLUTIONS / STEPS SECTION
+======================================== */
+  .hch-steps-section {
+    background: #f8f9ff;
+  }
+
+  .hch-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .hch-step-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+  }
+
+  .hch-step-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .hch-step-card .icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(
+      135deg,
+      rgba(13, 110, 253, 0.1) 0%,
+      rgba(13, 110, 253, 0.05) 100%
+    );
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .hch-step-card .icon i {
+    font-size: 32px;
+    color: #0d6efd;
+  }
+
+  .hch-step-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 15px;
+  }
+
+  .hch-step-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+   BOOK APPOINTMENT BANNER
+======================================== */
+  .hch-appointment-banner {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 60px 0;
+  }
+
+  .hch-appointment-banner .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .hch-appointment-banner h3 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .hch-appointment-banner .appointment-form {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .hch-appointment-banner select,
+  .hch-appointment-banner input {
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: none;
+    font-size: 14px;
+    min-width: 200px;
+  }
+
+  .hch-appointment-banner .hch-btn {
+    background: #fff;
+    color: #0d6efd;
+  }
+
+  .hch-appointment-banner .hch-btn:hover {
+    background: #f0f0f0;
+  }
+
+  /* ========================================
+   WHY CHOOSE / STATS SECTION
+======================================== */
+  .hch-stats-section .container {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hch-stats-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .hch-stat-card {
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hch-stat-card.blue {
+    background: #0d6efd;
+  }
+  .hch-stat-card.orange {
+    background: #ef720c;
+  }
+  .hch-stat-card.red {
+    background: #ed2f16;
+  }
+  .hch-stat-card.green {
+    background: #16ed8f;
+  }
+
+  .hch-stat-card h3 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .hch-stat-card p {
+    font-size: 16px;
+    margin: 10px 0 0;
+  }
+
+  .hch-about-content {
+    flex: 1;
+  }
+
+  .hch-about-content h3 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 20px;
+  }
+
+  .hch-about-content p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  /* ========================================
+   SERVICES SECTION
+======================================== */
+  .hch-services-section {
+    background: #f8f9ff;
+  }
+
+  .hch-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+
+  .hch-service-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hch-service-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .hch-service-card .image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+  }
+
+  .hch-service-card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .hch-service-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 15px;
+  }
+
+  .hch-service-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+   HEALTHCARE / QUALITY SECTION
+======================================== */
+  .hch-quality-section .container {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hch-quality-content {
+    flex: 1;
+  }
+
+  .hch-quality-content span {
+    color: #0d6efd;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hch-quality-content h3 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin: 15px 0 20px;
+    line-height: 1.3;
+  }
+
+  .hch-quality-content p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  .hch-quality-image {
+    flex: 1;
+    position: relative;
+  }
+
+  .hch-quality-image img {
+    max-width: 100%;
+    border-radius: 20px;
+  }
+
+  .hch-quality-image .certified-badge {
+    position: absolute;
+    bottom: 30px;
+    left: -30px;
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .hch-quality-image .certified-badge .icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hch-quality-image .certified-badge .icon i {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  /* ========================================
+   FOOTER
+======================================== */
+  .hch-footer {
+    background: #0d1b2a;
+    color: #fff;
+    padding: 80px 0 0;
+  }
+
+  .hch-footer .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .hch-footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hch-footer-about img {
+    height: 70px;
+    margin-bottom: 20px;
+  }
+
+  .hch-footer-about p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 14px;
+  }
+
+  .hch-footer h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+
+  .hch-footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hch-footer-links li {
+    margin-bottom: 12px;
+  }
+
+  .hch-footer-links li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+
+  .hch-footer-links li a:hover {
+    color: #0d6efd;
+  }
+
+  .hch-footer-contact li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hch-footer-contact li i {
+    color: #0d6efd;
+    font-size: 20px;
+    width: 24px;
+  }
+
+  .hch-footer-contact li h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 5px;
+  }
+
+  .hch-footer-contact li span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+  }
+
+  .hch-footer-bottom {
+    text-align: center;
+    padding: 25px 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+  }
+
+  .hch-footer-bottom a {
+    color: #0d6efd;
+    text-decoration: none;
+  }
+
+  /* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+  @media (max-width: 1200px) {
+    .hch-services-grid,
+    .hch-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .hch-hero .container,
+    .hch-stats-section .container,
+    .hch-quality-section .container {
+      flex-direction: column;
+    }
+
+    .hch-hero-content h1 {
+      font-size: 36px;
+    }
+
+    .hch-footer-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hch-navbar .nav-menu {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hch-services-grid,
+    .hch-steps-grid,
+    .hch-stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hch-doctors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hch-appointment-banner .container {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
+<!-- Font Awesome Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<div class="hch-page">
+  <!-- ========================================
+     NAVBAR
+======================================== -->
+  <nav class="hch-navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="/">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/45/Hemayetpur-Cental-Hospital-3.png"
+            alt="HCH Logo"
+          />
+        </a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/our-services">Services</a></li>
+        <li><a href="/our-doctors">Doctors</a></li>
+        <li><a href="/about-us">About</a></li>
+        <li><a href="/contact-us">Contact</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="/login" class="hch-btn hch-btn-outline">Login</a>
+        <a href="/appointment" class="hch-btn hch-btn-primary"
+          >Book Appointment</a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================
+     HERO SECTION
+======================================== -->
+  <section class="hch-hero">
+    <div class="container">
+      <div class="hch-hero-content">
+        <span class="experience-badge">🏥 10 Years Experience</span>
+        <h1>Find the best Services for your Health</h1>
+        <p>
+          Hemayetpur Central Hospital provides modern, affordable, and
+          compassionate healthcare services including painless normal delivery,
+          endoscopy, physiotherapy, diagnostics, and specialist consultations.
+        </p>
+        <div style="display: flex; gap: 15px">
+          <a href="/appointment" class="hch-btn hch-btn-primary"
+            >📅 Book Appointment</a
+          >
+          <a href="/register" class="hch-btn hch-btn-outline">Sign Up</a>
+        </div>
+      </div>
+      <div class="hch-hero-image">
+        <div class="circle-bg"></div>
+        <img
+          src="http://hemayetpurcentralhospital.com/uploads/11/doctor.png"
+          alt="Doctor"
+        />
+
+        <div class="hch-doctor-card contact-card">
+          <div class="icon"><i class="fas fa-phone"></i></div>
+          <h4>Contact</h4>
+          <p>+8801839-952901</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     PROFESSIONAL DOCTORS SECTION
+======================================== -->
+  <section class="hch-section">
+    <div class="container">
+      <div class="hch-section-title">
+        <span>Professional Doctors</span>
+        <h2>We are Experienced Healthcare Professionals</h2>
+      </div>
+
+      <div class="hch-doctors-grid">
+        <div class="hch-doctor-box">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/52/Dr.-Ariful.jpeg"
+              alt="Dr. Md. Ariful Islam"
+            />
+          </div>
+          <div class="content">
+            <span>Department of ENT & Head–Neck Surgery</span>
+            <h3>Dr. Md. Ariful Islam</h3>
+          </div>
+        </div>
+
+        <div class="hch-doctor-box">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/50/Dr.-Manik.jpeg"
+              alt="Dr. Md. Zakir Hossain"
+            />
+          </div>
+          <div class="content">
+            <span>MBBS, BCS (Health) FCPS (Surgery) MS (Urology)</span>
+            <h3>Dr. Md. Zakir Hossain Manik</h3>
+          </div>
+        </div>
+
+        <div class="hch-doctor-box">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/31/Dr.-Animesh.jpeg"
+              alt="Dr. Animesh Chandra Das"
+            />
+          </div>
+          <div class="content">
+            <span>MBBS, BCS (Health), MD (Pediatric Gastroenterology)</span>
+            <h3>Dr. Animesh Chandra Das</h3>
+          </div>
+        </div>
+
+        <div class="hch-doctor-box">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/51/Dr.-Sourov.jpeg"
+              alt="Dr. Sourav Kumar Saha"
+            />
+          </div>
+          <div class="content">
+            <span>MBBS (DU), M.Sc (Medical Imaging), FCPS (FP)</span>
+            <h3>Dr. Sourav Kumar Saha</h3>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px">
+        <a href="/our-doctors" class="hch-btn hch-btn-primary"
+          >View All Doctors →</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     EASY SOLUTIONS / STEPS SECTION
+======================================== -->
+  <section class="hch-section hch-steps-section">
+    <div class="container">
+      <div class="hch-section-title">
+        <span>Easy Solutions</span>
+        <h2>4 Easy Steps and Get the World Best Treatment</h2>
+      </div>
+
+      <div class="hch-steps-grid">
+        <div class="hch-step-card">
+          <div class="icon"><i class="fas fa-user-md"></i></div>
+          <h3>Check a Doctor Profile</h3>
+          <p>
+            Check out the profile of a doctor who will diagnose your disease
+          </p>
+        </div>
+
+        <div class="hch-step-card">
+          <div class="icon"><i class="fas fa-calendar-check"></i></div>
+          <h3>Book an Appointment</h3>
+          <p>
+            Book your appointment using the website or direct call us for
+            booking
+          </p>
+        </div>
+
+        <div class="hch-step-card">
+          <div class="icon"><i class="fas fa-stethoscope"></i></div>
+          <h3>Receive Consultation</h3>
+          <p>
+            Go to hospital to receive the best consultation for your disease
+          </p>
+        </div>
+
+        <div class="hch-step-card">
+          <div class="icon"><i class="fas fa-check-double"></i></div>
+          <h3>Get Your Solution</h3>
+          <p>
+            With our specialized doctors and modern machines, get the best
+            solution
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     BOOK APPOINTMENT BANNER
+======================================== -->
+  <section class="hch-appointment-banner">
+    <div class="container">
+      <h3>📅 Book an Appointment</h3>
+      <form class="appointment-form" action="/appointment" method="GET">
+        <select name="doctor">
+          <option value="">Select Doctor</option>
+          <option value="1">Dr. Md. Ariful Islam</option>
+          <option value="2">Dr. Md. Zakir Hossain Manik</option>
+          <option value="3">Dr. Animesh Chandra Das</option>
+        </select>
+        <input type="date" name="date" placeholder="Select Date" />
+        <button type="submit" class="hch-btn">Book Now</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================
+     WHY CHOOSE / STATS & ABOUT SECTION
+======================================== -->
+  <section class="hch-section hch-stats-section">
+    <div class="container">
+      <div class="hch-stats-grid">
+        <div class="hch-stat-card blue">
+          <h3>1</h3>
+          <p>Patients Beds</p>
+        </div>
+        <div class="hch-stat-card orange">
+          <h3>18</h3>
+          <p>Doctors & Nurses</p>
+        </div>
+        <div class="hch-stat-card red">
+          <h3>1598</h3>
+          <p>Happy Patients</p>
+        </div>
+        <div class="hch-stat-card green">
+          <h3>10</h3>
+          <p>Years Experience</p>
+        </div>
+      </div>
+
+      <div class="hch-about-content">
+        <h3>About HCH</h3>
+        <p>
+          Hemayetpur Central Hospital is committed to delivering ethical,
+          patient-focused, and high-quality healthcare services under one roof.
+          Our mission is to make advanced medical treatment accessible without
+          the need to travel to Dhaka or Savar.
+        </p>
+        <p>
+          We combine expert medical professionals, modern equipment, and
+          compassionate care to ensure accurate diagnosis, effective treatment,
+          and patient satisfaction. From preventive care to specialized
+          treatments, we prioritize safety, comfort, and trust at every step.
+        </p>
+        <a href="/appointment" class="hch-btn hch-btn-primary"
+          >Book Appointment</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     SERVICES SECTION
+======================================== -->
+  <section class="hch-section hch-services-section">
+    <div class="container">
+      <div class="hch-section-title">
+        <span>Our Services</span>
+        <h2>We Offer Different Services To Improve Your Health</h2>
+      </div>
+
+      <div class="hch-services-grid">
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/1/cardiology.png"
+              alt="Cardiology"
+            />
+          </div>
+          <h3>Cardiology</h3>
+          <p>
+            Comprehensive heart care including diagnosis, consultation, and
+            management of heart diseases
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/2/orthopedics.png"
+              alt="Orthopedics"
+            />
+          </div>
+          <h3>Orthopedics</h3>
+          <p>
+            Advanced treatment for bone, joint, muscle, and spine problems
+            including arthritis and fractures
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/3/pulmonology.png"
+              alt="Pulmonology"
+            />
+          </div>
+          <h3>Pulmonology</h3>
+          <p>
+            Specialized care for respiratory diseases such as asthma, COPD, and
+            lung infections
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/5/medicine.png"
+              alt="Medicine"
+            />
+          </div>
+          <h3>Medicine</h3>
+          <p>
+            Diagnosis and treatment of common and chronic illnesses including
+            diabetes and hypertension
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/6/ambulance.png"
+              alt="Ambulance"
+            />
+          </div>
+          <h3>Ambulance</h3>
+          <p>Emergency ambulance support 24/7. Contact: 01617603261</p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/8/neurology.png"
+              alt="Neurology"
+            />
+          </div>
+          <h3>Neurology</h3>
+          <p>
+            Specialized treatment for neurological disorders including headache,
+            stroke, and epilepsy
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/34/ChatGPT-Image-Jan-15,-2026,-08_06_54-PM.png"
+              alt="Painless Delivery"
+            />
+          </div>
+          <h3>Painless Normal Delivery</h3>
+          <p>
+            Safe and comfortable painless normal delivery services with
+            experienced gynecologists
+          </p>
+        </div>
+
+        <div class="hch-service-card">
+          <div class="image">
+            <img
+              src="http://hemayetpurcentralhospital.com/uploads/35/ChatGPT-Image-Jan-15,-2026,-08_17_01-PM.png"
+              alt="Endoscopy"
+            />
+          </div>
+          <h3>Endoscopy & Colonoscopy</h3>
+          <p>
+            Advanced diagnostic endoscopy and colonoscopy services for
+            gastrointestinal conditions
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px">
+        <a href="/our-services" class="hch-btn hch-btn-primary"
+          >View All Services →</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     QUALITY HEALTHCARE SECTION
+======================================== -->
+  <section class="hch-section hch-quality-section">
+    <div class="container">
+      <div class="hch-quality-content">
+        <span>Quality Healthcare</span>
+        <h3>
+          Have Certified Doctors and High Quality Services for Your Health
+        </h3>
+        <p>
+          Hemayetpur Central Hospital provides modern, affordable, and
+          compassionate healthcare services including painless normal delivery,
+          endoscopy, physiotherapy, diagnostics, and specialist consultations in
+          Hemayetpur.
+        </p>
+        <a href="/appointment" class="hch-btn hch-btn-primary"
+          >Book Appointment</a
+        >
+      </div>
+
+      <div class="hch-quality-image">
+        <img
+          src="http://hemayetpurcentralhospital.com/uploads/12/doctor-1.png"
+          alt="Quality Healthcare"
+        />
+        <div class="certified-badge">
+          <div class="icon"><i class="fas fa-award"></i></div>
+          <div>
+            <h4 style="margin: 0; font-size: 16px">Certified Doctors</h4>
+            <p style="margin: 5px 0 0; font-size: 13px; color: #666">
+              We have certified Doctors
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+     FOOTER
+======================================== -->
+  <footer class="hch-footer">
+    <div class="container">
+      <div class="hch-footer-grid">
+        <div class="hch-footer-about">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/45/Hemayetpur-Cental-Hospital-3.png"
+            alt="HCH Logo"
+          />
+          <p>
+            Hemayetpur Central Hospital is a modern multispecialty healthcare
+            facility dedicated to providing safe, affordable, and quality
+            medical services to the people of Hemayetpur.
+          </p>
+        </div>
+
+        <div>
+          <h4>Useful Links</h4>
+          <ul class="hch-footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/our-services">Services</a></li>
+            <li><a href="/our-doctors">Doctors</a></li>
+            <li><a href="/about-us">About</a></li>
+            <li><a href="/contact-us">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact Information</h4>
+          <ul
+            class="hch-footer-contact"
+            style="list-style: none; padding: 0; margin: 0"
+          >
+            <li>
+              <i class="fas fa-phone"></i>
+              <div>
+                <h5>+8801839-952901</h5>
+                <span>Call Today</span>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <div>
+                <h5>9 AM to 9 PM</h5>
+                <span>Open Hours</span>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h5>Pranto Plaza, Hemayetpur Bus Stand</h5>
+                <span>Hemayetpur, Savar, Dhaka 1240</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hch-footer-bottom">
+        <p>
+          Copyright © 2026 All Rights Reserved by <a href="/">HCH</a> |
+          Developed and Maintained by
+          <a href="https://bemantech.com" target="_blank">Bemantech Ltd</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+  });
+
+  // Add navbar shadow on scroll
+  window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".hch-navbar");
+    if (window.scrollY > 50) {
+      navbar.style.boxShadow = "0 5px 30px rgba(0,0,0,0.15)";
+    } else {
+      navbar.style.boxShadow = "0 2px 15px rgba(0,0,0,0.1)";
+    }
+  });
+</script>

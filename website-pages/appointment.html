@@ -1,0 +1,676 @@
+<!-- 
+    HEMAYETPUR CENTRAL HOSPITAL - APPOINTMENT / CONTACT PAGE
+    Copy this HTML to ERPNext Web Page (Route: appointment)
+-->
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+  .hch-appointment-page * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .hch-appointment-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hch-appointment-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .hch-appointment-hero p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .hch-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  /* Appointment Section */
+  .hch-appointment-section {
+    padding: 80px 0;
+  }
+
+  .hch-appointment-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: flex-start;
+  }
+
+  /* Form Styles */
+  .hch-appointment-form {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .hch-appointment-form h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 10px;
+  }
+
+  .hch-appointment-form .subtitle {
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .hch-form-group {
+    margin-bottom: 20px;
+  }
+
+  .hch-form-group label {
+    display: block;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .hch-form-group input,
+  .hch-form-group select,
+  .hch-form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .hch-form-group input:focus,
+  .hch-form-group select:focus,
+  .hch-form-group textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+  }
+
+  .hch-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .hch-submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+  }
+
+  .hch-submit-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
+  }
+
+  /* Contact Info */
+  .hch-contact-info h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 30px;
+  }
+
+  .hch-info-card {
+    background: #f8f9ff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: transform 0.3s;
+  }
+
+  .hch-info-card:hover {
+    transform: translateX(10px);
+  }
+
+  .hch-info-card .icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .hch-info-card .icon i {
+    color: #fff;
+    font-size: 24px;
+  }
+
+  .hch-info-card .details h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 8px;
+  }
+
+  .hch-info-card .details p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .hch-info-card .details a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .hch-info-card .details a:hover {
+    text-decoration: underline;
+  }
+
+  /* Working Hours */
+  .hch-hours {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 30px;
+    border-radius: 15px;
+    color: #fff;
+    margin-top: 30px;
+  }
+
+  .hch-hours h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hch-hours-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .hch-hours-item:last-child {
+    border-bottom: none;
+  }
+
+  .hch-hours-item span.day {
+    font-weight: 500;
+  }
+
+  .hch-hours-item span.time {
+    opacity: 0.9;
+  }
+
+  .hch-emergency {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .hch-emergency i {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .hch-emergency p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  /* Map Section */
+  .hch-map-section {
+    padding: 0 0 80px;
+  }
+
+  .hch-map-container {
+    background: #f8f9ff;
+    padding: 30px;
+    border-radius: 20px;
+  }
+
+  .hch-map-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .hch-map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 15px;
+  }
+
+  /* FAQ Section */
+  .hch-faq-section {
+    background: #f8f9ff;
+    padding: 80px 0;
+  }
+
+  .hch-section-title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .hch-section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 15px;
+  }
+
+  .hch-faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+
+  .hch-faq-item {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .hch-faq-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hch-faq-item h4 i {
+    color: #0d6efd;
+  }
+
+  .hch-faq-item p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 992px) {
+    .hch-appointment-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .hch-faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hch-form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<div class="hch-appointment-page">
+  <!-- Hero Section -->
+  <section class="hch-appointment-hero">
+    <h1>Book an Appointment</h1>
+    <p>Schedule Your Visit with Our Expert Doctors</p>
+  </section>
+
+  <!-- Appointment Form & Contact Section -->
+  <section class="hch-appointment-section">
+    <div class="hch-container">
+      <div class="hch-appointment-wrapper">
+        <!-- Appointment Form -->
+        <div class="hch-appointment-form">
+          <h2>Request Appointment</h2>
+          <p class="subtitle">
+            Fill out the form below and we will contact you to confirm your
+            appointment
+          </p>
+
+          <form id="appointmentForm">
+            <div class="hch-form-row">
+              <div class="hch-form-group">
+                <label>Full Name *</label>
+                <input
+                  type="text"
+                  name="patient_name"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="hch-form-group">
+                <label>Phone Number *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="hch-form-row">
+              <div class="hch-form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div class="hch-form-group">
+                <label>Age *</label>
+                <input
+                  type="number"
+                  name="age"
+                  placeholder="Your age"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="hch-form-group">
+              <label>Select Department *</label>
+              <select name="department" required>
+                <option value="">-- Select Department --</option>
+                <option value="general-medicine">General Medicine</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="gynecology">Gynecology & Obstetrics</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="neurology">Neurology</option>
+                <option value="nephrology">Nephrology</option>
+                <option value="gastroenterology">Gastroenterology</option>
+                <option value="dermatology">Dermatology</option>
+                <option value="ent">ENT</option>
+                <option value="urology">Urology</option>
+                <option value="cardiology">Cardiology</option>
+              </select>
+            </div>
+
+            <div class="hch-form-group">
+              <label>Select Doctor</label>
+              <select name="doctor">
+                <option value="">-- Select Doctor (Optional) --</option>
+                <option value="dr-ariful">Dr. Md. Ariful Islam (ENT)</option>
+                <option value="dr-manik">
+                  Dr. Md. Zakir Hossain Manik (Urology)
+                </option>
+                <option value="dr-animesh">
+                  Dr. Animesh Chandra Das (Pediatrics)
+                </option>
+                <option value="dr-nasima">
+                  Dr. Nasima Akther (Gynecology)
+                </option>
+                <option value="dr-taher">
+                  Dr. Md. Abu Taher Mia (Neurosurgery)
+                </option>
+                <option value="dr-bayejid">
+                  Dr. Md. Bayejid Hossain (Nephrology)
+                </option>
+                <option value="dr-sadikur">
+                  Dr. Md. Sadikur Rahman (Gastroenterology)
+                </option>
+                <option value="dr-sadia">Dr. Umma Sadia (Dermatology)</option>
+              </select>
+            </div>
+
+            <div class="hch-form-row">
+              <div class="hch-form-group">
+                <label>Preferred Date *</label>
+                <input type="date" name="date" required />
+              </div>
+              <div class="hch-form-group">
+                <label>Preferred Time</label>
+                <select name="time">
+                  <option value="">-- Select Time --</option>
+                  <option value="morning">Morning (9AM - 12PM)</option>
+                  <option value="afternoon">Afternoon (12PM - 4PM)</option>
+                  <option value="evening">Evening (4PM - 8PM)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="hch-form-group">
+              <label>Reason for Visit / Message</label>
+              <textarea
+                name="message"
+                rows="4"
+                placeholder="Briefly describe your symptoms or reason for visit"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="hch-submit-btn">
+              <i class="fas fa-calendar-check"></i> Request Appointment
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="hch-contact-info">
+          <h2>Contact Information</h2>
+
+          <div class="hch-info-card">
+            <div class="icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="details">
+              <h4>Hospital Address</h4>
+              <p>Hemayetpur Bus Stand<br />Savar, Dhaka<br />Bangladesh</p>
+            </div>
+          </div>
+
+          <div class="hch-info-card">
+            <div class="icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="details">
+              <h4>Phone Numbers</h4>
+              <p>
+                <a href="tel:+8801885040404">+880 1885 040404</a><br />
+                <a href="tel:+8801713606273">+880 1713 606273</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="hch-info-card">
+            <div class="icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="details">
+              <h4>Email Address</h4>
+              <p>
+                <a href="mailto:info@hemayetpurcentralhospital.com"
+                  >info@hemayetpurcentralhospital.com</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="hch-info-card">
+            <div class="icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="details">
+              <h4>Follow Us</h4>
+              <p>
+                <a href="https://facebook.com/hchospitalbd" target="_blank"
+                  >facebook.com/hchospitalbd</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Working Hours -->
+          <div class="hch-hours">
+            <h3><i class="fas fa-clock"></i> Working Hours</h3>
+
+            <div class="hch-hours-item">
+              <span class="day">Saturday - Thursday</span>
+              <span class="time">8:00 AM - 10:00 PM</span>
+            </div>
+            <div class="hch-hours-item">
+              <span class="day">Friday</span>
+              <span class="time">4:00 PM - 10:00 PM</span>
+            </div>
+            <div class="hch-hours-item">
+              <span class="day">Emergency</span>
+              <span class="time">24 Hours</span>
+            </div>
+
+            <div class="hch-emergency">
+              <i class="fas fa-ambulance"></i>
+              <p>Emergency: 01885040404</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="hch-map-section">
+    <div class="hch-container">
+      <div class="hch-map-container">
+        <h2>Find Us On Map</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.0!2d90.2653!3d23.8153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ4JzU1LjEiTiA5MMKwMTUnNTUuMSJF!5e0!3m2!1sen!2sbd!4v1699999999999!5m2!1sen!2sbd"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="hch-faq-section">
+    <div class="hch-container">
+      <div class="hch-section-title">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+
+      <div class="hch-faq-grid">
+        <div class="hch-faq-item">
+          <h4>
+            <i class="fas fa-question-circle"></i> How do I book an appointment?
+          </h4>
+          <p>
+            You can book an appointment by filling out the form above, calling
+            our hotline, or visiting our hospital directly.
+          </p>
+        </div>
+
+        <div class="hch-faq-item">
+          <h4>
+            <i class="fas fa-question-circle"></i> What documents should I
+            bring?
+          </h4>
+          <p>
+            Please bring your National ID, any previous medical records, test
+            reports, and current medication list.
+          </p>
+        </div>
+
+        <div class="hch-faq-item">
+          <h4>
+            <i class="fas fa-question-circle"></i> Do you accept health
+            insurance?
+          </h4>
+          <p>
+            Yes, we accept various health insurance plans. Please contact us for
+            specific insurance inquiries.
+          </p>
+        </div>
+
+        <div class="hch-faq-item">
+          <h4><i class="fas fa-question-circle"></i> Is parking available?</h4>
+          <p>
+            Yes, free parking is available for patients and visitors at our
+            hospital premises.
+          </p>
+        </div>
+
+        <div class="hch-faq-item">
+          <h4>
+            <i class="fas fa-question-circle"></i> What are the consultation
+            fees?
+          </h4>
+          <p>
+            Consultation fees vary by department and specialist. Please call our
+            reception for current fee information.
+          </p>
+        </div>
+
+        <div class="hch-faq-item">
+          <h4>
+            <i class="fas fa-question-circle"></i> Do you have emergency
+            services?
+          </h4>
+          <p>
+            Yes, our emergency department operates 24/7 with experienced staff
+            and ambulance services.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  document
+    .getElementById("appointmentForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Show success message (customize based on your backend)
+      alert(
+        "Thank you for your appointment request! We will contact you shortly to confirm your appointment.",
+      );
+
+      // In ERPNext, you would integrate this with Web Form or API
+      // Example: frappe.call({ method: 'healthcare.api.create_appointment', args: formData })
+
+      this.reset();
+    });
+
+  // Set minimum date to today
+  document.querySelector('input[name="date"]').min = new Date()
+    .toISOString()
+    .split("T")[0];
+</script>

@@ -1,0 +1,496 @@
+<!-- 
+    HEMAYETPUR CENTRAL HOSPITAL - DOCTORS PAGE
+    Copy this HTML to ERPNext Web Page (Route: our-doctors)
+-->
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+  .hch-doctors-page * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .hch-doctors-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hch-doctors-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .hch-doctors-hero p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .hch-doctors-section {
+    padding: 80px 0;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .hch-doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .hch-doctor-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .hch-doctor-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .hch-doctor-card .image {
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hch-doctor-card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+
+  .hch-doctor-card:hover .image img {
+    transform: scale(1.05);
+  }
+
+  .hch-doctor-card .image .specialty-badge {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(13, 110, 253, 0.9);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .hch-doctor-card .content {
+    padding: 25px;
+  }
+
+  .hch-doctor-card .content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 10px;
+  }
+
+  .hch-doctor-card .content .qualification {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .hch-doctor-card .content .schedule {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0d6efd;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .hch-doctor-card .book-btn {
+    display: block;
+    text-align: center;
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .hch-doctor-card .book-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+  }
+
+  /* Filter Section */
+  .hch-filter-section {
+    background: #f8f9ff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hch-filter-section label {
+    font-weight: 600;
+    color: #0d1b2a;
+  }
+
+  .hch-filter-section select {
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    min-width: 200px;
+  }
+
+  @media (max-width: 768px) {
+    .hch-doctors-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<div class="hch-doctors-page">
+  <!-- Hero Section -->
+  <section class="hch-doctors-hero">
+    <h1>Our Doctors</h1>
+    <p>Meet Our Team of Experienced Healthcare Professionals</p>
+  </section>
+
+  <!-- Doctors List -->
+  <section class="hch-doctors-section">
+    <!-- Filter -->
+    <div class="hch-filter-section">
+      <label>Filter by Department:</label>
+      <select id="departmentFilter" onchange="filterDoctors()">
+        <option value="all">All Departments</option>
+        <option value="ent">ENT</option>
+        <option value="urology">Urology</option>
+        <option value="pediatrics">Pediatrics</option>
+        <option value="gynecology">Gynecology</option>
+        <option value="neurology">Neurology</option>
+        <option value="orthopedics">Orthopedics</option>
+        <option value="dermatology">Dermatology</option>
+        <option value="gastroenterology">Gastroenterology</option>
+      </select>
+    </div>
+
+    <!-- Doctors Grid -->
+    <div class="hch-doctors-grid">
+      <!-- Doctor 1 -->
+      <div class="hch-doctor-card" data-department="ent">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/52/Dr.-Ariful.jpeg"
+            alt="Dr. Md. Ariful Islam"
+          />
+          <span class="specialty-badge">ENT Specialist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Ariful Islam</h3>
+          <p class="qualification">
+            Department of ENT & Head–Neck Surgery, Enam Medical College
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=ariful" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 2 -->
+      <div class="hch-doctor-card" data-department="urology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/50/Dr.-Manik.jpeg"
+            alt="Dr. Md. Zakir Hossain Manik"
+          />
+          <span class="specialty-badge">Urologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Zakir Hossain Manik</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), FCPS (Surgery), MS (Urology)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=manik" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 3 -->
+      <div class="hch-doctor-card" data-department="pediatrics">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/31/Dr.-Animesh.jpeg"
+            alt="Dr. Animesh Chandra Das"
+          />
+          <span class="specialty-badge">Pediatrician</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Animesh Chandra Das</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), MD (Pediatric Gastroenterology)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=animesh" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 4 -->
+      <div class="hch-doctor-card" data-department="radiology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/51/Dr.-Sourov.jpeg"
+            alt="Dr. Sourav Kumar Saha"
+          />
+          <span class="specialty-badge">Radiologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Sourav Kumar Saha</h3>
+          <p class="qualification">
+            MBBS (DU), M.Sc (Medical Imaging), FCPS (FP)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=sourav" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 5 -->
+      <div class="hch-doctor-card" data-department="surgery">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/49/Dr.-Abdullah.jpeg"
+            alt="Dr. Abdullah Al Mahmud"
+          />
+          <span class="specialty-badge">Pediatric Surgeon</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Abdullah Al Mahmud</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), MS (Pediatric Surgery)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=abdullah" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 6 -->
+      <div class="hch-doctor-card" data-department="gynecology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/32/Dr.-Nasima.jpeg"
+            alt="Dr. Nasima Akther"
+          />
+          <span class="specialty-badge">Gynecologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Nasima Akther</h3>
+          <p class="qualification">
+            MBBS (DMC), BCS (Health), DGO, FCPS (Gynae & Obs)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=nasima" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 7 -->
+      <div class="hch-doctor-card" data-department="neurology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/53/Dr.-Taher.jpeg"
+            alt="Dr. Md. Abu Taher Mia"
+          />
+          <span class="specialty-badge">Neuro Surgeon</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Abu Taher Mia</h3>
+          <p class="qualification">MBBS (Dhaka), MS (Neuro Surgery)</p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=taher" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 8 -->
+      <div class="hch-doctor-card" data-department="gastroenterology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/46/Dr.-Zilanur-Rahman.jpeg"
+            alt="Dr. Md. Jilanur Rahman"
+          />
+          <span class="specialty-badge">HPB Surgeon</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Jilanur Rahman</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), MS (Hepatobiliary, Pancreatic Surgery)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=jilanur" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 9 -->
+      <div class="hch-doctor-card" data-department="nephrology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/30/Dr.-Bayejid.jpeg"
+            alt="Dr. Md. Bayejid Hossain"
+          />
+          <span class="specialty-badge">Nephrologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Bayejid Hossain</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), MD (Nephrology), CCD (BIRDEM)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=bayejid" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 10 -->
+      <div class="hch-doctor-card" data-department="gastroenterology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/47/Dr.-Sadikur.jpeg"
+            alt="Dr. Md. Sadikur Rahman"
+          />
+          <span class="specialty-badge">Gastroenterologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Md. Sadikur Rahman</h3>
+          <p class="qualification">
+            MBBS, BCS (Health), CCD (BIRDEM), MD (Gastroenterology)
+          </p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=sadikur" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 11 -->
+      <div class="hch-doctor-card" data-department="orthopedics">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/54/Dr.-Ishak.jpeg"
+            alt="Professor Dr. Md. Ishak"
+          />
+          <span class="specialty-badge">Orthopedic Surgeon</span>
+        </div>
+        <div class="content">
+          <h3>Professor Dr. Md. Ishak</h3>
+          <p class="qualification">MBBS (Ortho), MS (Ortho)</p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=ishak" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+
+      <!-- Doctor 12 -->
+      <div class="hch-doctor-card" data-department="dermatology">
+        <div class="image">
+          <img
+            src="http://hemayetpurcentralhospital.com/uploads/48/Dr.-Umma-Sadia.jpeg"
+            alt="Dr. Umma Sadia"
+          />
+          <span class="specialty-badge">Dermatologist</span>
+        </div>
+        <div class="content">
+          <h3>Dr. Umma Sadia</h3>
+          <p class="qualification">MBBS, BCS (Health), PJT (Skin & VD)</p>
+          <div class="schedule">
+            <i class="fas fa-clock"></i>
+            <span>Available: Check Schedule</span>
+          </div>
+          <a href="/appointment?doctor=sadia" class="book-btn"
+            >Book Appointment</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  function filterDoctors() {
+    const filter = document.getElementById("departmentFilter").value;
+    const cards = document.querySelectorAll(".hch-doctor-card");
+
+    cards.forEach((card) => {
+      if (filter === "all" || card.dataset.department === filter) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+</script>

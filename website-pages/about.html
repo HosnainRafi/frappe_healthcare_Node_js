@@ -1,0 +1,253 @@
+<!-- 
+    HEMAYETPUR CENTRAL HOSPITAL - ABOUT PAGE
+    Copy this HTML to ERPNext Web Page (Route: about-us)
+-->
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+  .hch-about-page * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .hch-about-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hch-about-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .hch-about-hero p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .hch-about-section {
+    padding: 80px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .hch-mission-vision {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .hch-mv-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    border-left: 4px solid #0d6efd;
+  }
+
+  .hch-mv-card h3 {
+    font-size: 22px;
+    color: #0d1b2a;
+    margin-bottom: 15px;
+  }
+
+  .hch-mv-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  .hch-history {
+    background: #f8f9ff;
+    border-radius: 20px;
+    padding: 50px;
+    margin-bottom: 60px;
+  }
+
+  .hch-history h2 {
+    font-size: 32px;
+    color: #0d1b2a;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .hch-history p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.9;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hch-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+
+  .hch-value-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+  }
+
+  .hch-value-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .hch-value-card .icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(
+      135deg,
+      rgba(13, 110, 253, 0.1) 0%,
+      rgba(13, 110, 253, 0.05) 100%
+    );
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+    color: #0d6efd;
+  }
+
+  .hch-value-card h4 {
+    font-size: 16px;
+    color: #0d1b2a;
+    margin-bottom: 10px;
+  }
+
+  .hch-value-card p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 992px) {
+    .hch-mission-vision,
+    .hch-values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hch-mission-vision,
+    .hch-values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<div class="hch-about-page">
+  <!-- Hero Section -->
+  <section class="hch-about-hero">
+    <h1>About Hemayetpur Central Hospital</h1>
+    <p>Providing Quality Healthcare Since 2016</p>
+  </section>
+
+  <!-- Main Content -->
+  <section class="hch-about-section">
+    <!-- Mission, Vision, Values -->
+    <div class="hch-mission-vision">
+      <div class="hch-mv-card">
+        <h3>🎯 Our Mission</h3>
+        <p>
+          To provide ethical, patient-focused, and high-quality healthcare
+          services accessible to all, without the need to travel far for
+          advanced medical treatment.
+        </p>
+      </div>
+      <div class="hch-mv-card">
+        <h3>👁️ Our Vision</h3>
+        <p>
+          To become the leading healthcare provider in Savar and surrounding
+          areas, known for excellence, innovation, and compassionate patient
+          care.
+        </p>
+      </div>
+      <div class="hch-mv-card">
+        <h3>💪 Our Goal</h3>
+        <p>
+          To continuously improve our services, introduce new technologies, and
+          maintain international standards in healthcare delivery.
+        </p>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="hch-history">
+      <h2>Our Story</h2>
+      <p>
+        হেমায়েতপুর সেন্ট্রাল হাসপাতাল ২০১৬ সালে প্রতিষ্ঠিত হয়েছিল হেমায়েতপুর,
+        সাভার এলাকার মানুষদের মানসম্মত স্বাস্থ্যসেবা প্রদানের লক্ষ্যে। ঢাকা বা
+        সাভার শহরে না গিয়েই উন্নত চিকিৎসা সেবা পাওয়ার সুযোগ তৈরি করাই ছিল
+        আমাদের মূল উদ্দেশ্য।
+      </p>
+      <br />
+      <p>
+        Hemayetpur Central Hospital was established in 2016 with the goal of
+        providing quality healthcare to the people of Hemayetpur, Savar area.
+        Our main objective was to create opportunities for advanced medical
+        treatment without travelling to Dhaka or Savar city.
+      </p>
+      <br />
+      <p>
+        Today, we are proud to have served over 1,500 happy patients with our
+        team of 18+ dedicated doctors and nurses, offering a wide range of
+        services from general medicine to specialized treatments.
+      </p>
+    </div>
+
+    <!-- Core Values -->
+    <h2
+      style="
+        text-align: center;
+        font-size: 32px;
+        color: #0d1b2a;
+        margin-bottom: 40px;
+      "
+    >
+      Our Core Values
+    </h2>
+    <div class="hch-values-grid">
+      <div class="hch-value-card">
+        <div class="icon"><i class="fas fa-heart"></i></div>
+        <h4>Compassion</h4>
+        <p>We treat every patient with empathy and understanding</p>
+      </div>
+      <div class="hch-value-card">
+        <div class="icon"><i class="fas fa-award"></i></div>
+        <h4>Excellence</h4>
+        <p>We strive for the highest standards in everything we do</p>
+      </div>
+      <div class="hch-value-card">
+        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Safety</h4>
+        <p>Patient safety is our top priority at all times</p>
+      </div>
+      <div class="hch-value-card">
+        <div class="icon"><i class="fas fa-handshake"></i></div>
+        <h4>Trust</h4>
+        <p>Building lasting relationships through transparency and honesty</p>
+      </div>
+    </div>
+  </section>
+</div>

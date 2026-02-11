@@ -45,7 +45,8 @@ if %errorlevel% neq 0 (
 )
 echo.
 
-echo [2/4] Installing Healthcare app on site...
+echo [2/4] Adding Healthcare to apps.txt and installing...
+docker-compose exec backend bash -c "grep -q healthcare sites/apps.txt || echo 'healthcare' >> sites/apps.txt"
 docker-compose exec backend bench --site frontend install-app healthcare
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install Healthcare app!
