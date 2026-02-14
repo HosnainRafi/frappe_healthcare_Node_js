@@ -1,0 +1,494 @@
+<!-- 
+    DYNAMIC APPOINTMENT PAGE - Integrated with ERPNext
+    Route: appointment
+    Content Type: HTML
+-->
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+  .hch-appointment-page * {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .hch-appointment-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .hch-appointment-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .hch-appointment-hero p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .hch-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .hch-appointment-section {
+    padding: 80px 0;
+  }
+
+  .hch-appointment-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: flex-start;
+  }
+
+  .hch-appointment-form {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .hch-appointment-form h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 10px;
+  }
+
+  .hch-appointment-form .subtitle {
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .hch-info-box {
+    background: #f8f9ff;
+    padding: 40px;
+    border-radius: 20px;
+    border-left: 5px solid #0d6efd;
+  }
+
+  .hch-info-box h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 20px;
+  }
+
+  .hch-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .hch-info-item .icon {
+    width: 50px;
+    height: 50px;
+    background: #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .hch-info-item .content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0d1b2a;
+    margin-bottom: 5px;
+  }
+
+  .hch-info-item .content p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .hch-info-item .content a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .hch-login-prompt {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .hch-login-prompt p {
+    margin: 0 0 15px 0;
+    color: #856404;
+    font-weight: 500;
+  }
+
+  .hch-login-prompt .btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .hch-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hch-btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+    color: #fff;
+  }
+
+  .hch-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(13, 110, 253, 0.4);
+  }
+
+  .hch-btn-success {
+    background: #28a745;
+    color: #fff;
+  }
+
+  .hch-btn-success:hover {
+    background: #218838;
+    transform: translateY(-2px);
+  }
+
+  .hch-btn-outline {
+    background: transparent;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+  }
+
+  .hch-btn-outline:hover {
+    background: #0d6efd;
+    color: #fff;
+  }
+
+  .hch-logged-in-info {
+    background: #d4edda;
+    border: 2px solid #28a745;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hch-logged-in-info i {
+    color: #28a745;
+    font-size: 24px;
+  }
+
+  .hch-logged-in-info p {
+    margin: 0;
+    color: #155724;
+    font-weight: 500;
+  }
+
+  @media (max-width: 968px) {
+    .hch-appointment-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .hch-appointment-hero h1 {
+      font-size: 32px;
+    }
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<div class="hch-appointment-page">
+  <!-- Hero Section -->
+  <section class="hch-appointment-hero">
+    <h1>Book Your Appointment</h1>
+    <p>Schedule a consultation with our expert doctors</p>
+  </section>
+
+  <!-- Appointment Section -->
+  <section class="hch-appointment-section">
+    <div class="hch-container">
+      <div class="hch-appointment-wrapper">
+        <!-- Appointment Form (Left Side) -->
+        <div class="hch-appointment-form">
+          <h2>Appointment Booking</h2>
+          <p class="subtitle">Please login to book your appointment securely</p>
+
+          <!-- Check if user is logged in -->
+          {% if frappe.session.user != 'Guest' %}
+          <!-- User is logged in -->
+          <div class="hch-logged-in-info">
+            <i class="fas fa-check-circle"></i>
+            <p>Logged in as <strong>{{ frappe.session.user }}</strong></p>
+          </div>
+
+          <div style="text-align: center; padding: 40px 0">
+            <i
+              class="fas fa-calendar-check fa-4x"
+              style="color: #0d6efd; margin-bottom: 20px"
+            ></i>
+            <h3 style="margin-bottom: 20px">Ready to Book Your Appointment?</h3>
+            <p style="color: #666; margin-bottom: 30px">
+              You'll be redirected to our secure booking system where you can:
+            </p>
+            <ul
+              style="
+                text-align: left;
+                color: #666;
+                margin-bottom: 30px;
+                line-height: 2;
+              "
+            >
+              <li>Select your preferred doctor and department</li>
+              <li>Choose an available time slot</li>
+              <li>View your appointment history</li>
+              <li>Access your medical records</li>
+            </ul>
+            <a
+              href="/app/patient-appointment/new"
+              class="hch-btn hch-btn-success hch-btn-large"
+              style="padding: 15px 40px; font-size: 16px"
+            >
+              <i class="fas fa-arrow-right"></i> Proceed to Booking System
+            </a>
+            <br /><br />
+            <a
+              href="/app/patient-appointment"
+              style="color: #0d6efd; text-decoration: none; font-size: 14px"
+            >
+              <i class="fas fa-list"></i> View My Appointments
+            </a>
+          </div>
+
+          {% else %}
+          <!-- User is NOT logged in -->
+          <div class="hch-login-prompt">
+            <i
+              class="fas fa-info-circle fa-2x"
+              style="color: #ffc107; margin-bottom: 10px"
+            ></i>
+            <p>
+              Please login or register to book an appointment and track your
+              medical history
+            </p>
+            <div class="btn-group">
+              <a
+                href="/login?redirect-to=/appointment"
+                class="hch-btn hch-btn-primary"
+              >
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+              <a
+                href="/login#signup?redirect-to=/appointment"
+                class="hch-btn hch-btn-outline"
+              >
+                <i class="fas fa-user-plus"></i> Sign Up
+              </a>
+            </div>
+          </div>
+
+          <div
+            style="
+              text-align: center;
+              padding: 20px 0;
+              border-top: 2px dashed #ddd;
+              margin-top: 30px;
+            "
+          >
+            <h4 style="color: #0d1b2a; margin-bottom: 15px">Why Register?</h4>
+            <ul style="text-align: left; color: #666; line-height: 2">
+              <li>
+                <i class="fas fa-check text-success"></i> Track all your
+                appointments in one place
+              </li>
+              <li>
+                <i class="fas fa-check text-success"></i> Access your medical
+                history anytime
+              </li>
+              <li>
+                <i class="fas fa-check text-success"></i> Receive appointment
+                reminders
+              </li>
+              <li>
+                <i class="fas fa-check text-success"></i> View prescriptions and
+                lab reports
+              </li>
+              <li>
+                <i class="fas fa-check text-success"></i> Quick rebooking for
+                follow-ups
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Contact Info (Right Side) -->
+        <div class="hch-info-box">
+          <h3>Contact Information</h3>
+
+          <div class="hch-info-item">
+            <div class="icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="content">
+              <h4>Phone</h4>
+              <p><a href="tel:+8801234567890">+880 123 456 7890</a></p>
+              <p style="font-size: 12px; color: #999">
+                Available 24/7 for emergencies
+              </p>
+            </div>
+          </div>
+
+          <div class="hch-info-item">
+            <div class="icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="content">
+              <h4>Email</h4>
+              <p>
+                <a href="mailto:info@hemayetpurhospital.com"
+                  >info@hemayetpurhospital.com</a
+                >
+              </p>
+              <p style="font-size: 12px; color: #999">
+                We'll respond within 24 hours
+              </p>
+            </div>
+          </div>
+
+          <div class="hch-info-item">
+            <div class="icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="content">
+              <h4>Address</h4>
+              <p>Hemayetpur, Savar, Dhaka-1340<br />Bangladesh</p>
+            </div>
+          </div>
+
+          <div class="hch-info-item">
+            <div class="icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="content">
+              <h4>Working Hours</h4>
+              <p>
+                Monday - Saturday: 8:00 AM - 10:00 PM<br />
+                Sunday: 9:00 AM - 6:00 PM<br />
+                <span style="color: #28a745; font-weight: 600"
+                  >Emergency: 24/7</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: 30px;
+              padding-top: 30px;
+              border-top: 2px solid #e8e8e8;
+            "
+          >
+            <h4 style="margin-bottom: 15px">Quick Links</h4>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <a
+                href="/our-doctors"
+                style="color: #0d6efd; text-decoration: none; font-weight: 500"
+              >
+                <i class="fas fa-user-md"></i> View Our Doctors
+              </a>
+              <a
+                href="/our-services"
+                style="color: #0d6efd; text-decoration: none; font-weight: 500"
+              >
+                <i class="fas fa-heartbeat"></i> Our Services
+              </a>
+              <a
+                href="/app/patient-appointment"
+                style="color: #0d6efd; text-decoration: none; font-weight: 500"
+              >
+                <i class="fas fa-calendar"></i> My Appointments
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Departments Quick Access (DYNAMIC) -->
+      {% set departments = frappe.get_all('Medical Department',
+      fields=['department'], limit=6, order_by='department asc') %} {% if
+      departments %}
+      <div style="margin-top: 80px">
+        <h3
+          style="
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #0d1b2a;
+          "
+        >
+          Book by Department
+        </h3>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+          "
+        >
+          {% for dept in departments %}
+          <a
+            href="/our-doctors?department={{ dept.department }}"
+            style="
+              background: #f8f9ff;
+              padding: 25px;
+              border-radius: 15px;
+              text-align: center;
+              text-decoration: none;
+              transition: all 0.3s;
+            "
+            onmouseover="
+              this.style.background = '#0d6efd';
+              this.style.color = '#fff';
+            "
+            onmouseout="
+              this.style.background = '#f8f9ff';
+              this.style.color = '#0d1b2a';
+            "
+          >
+            <i
+              class="fas fa-heartbeat"
+              style="font-size: 32px; margin-bottom: 10px; color: inherit"
+            ></i>
+            <h4 style="margin: 0; color: inherit">{{ dept.department }}</h4>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+</div>

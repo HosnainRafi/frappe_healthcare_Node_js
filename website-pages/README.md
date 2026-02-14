@@ -1,52 +1,244 @@
-# Hemayetpur Central Hospital - ERPNext Website Pages
+# 🏥 Hospital Website Pages - DYNAMIC VERSION
 
-This folder contains HTML templates for the hospital website that can be added to ERPNext Web Pages.
+## Integrated with ERPNext Healthcare Module
 
-## Pages Created
+**⚠️ IMPORTANT**: Use the `-dynamic.html` files, NOT the old static files!
 
-| File               | Route in ERPNext | Description                                  |
-| ------------------ | ---------------- | -------------------------------------------- |
-| `home.html`        | `home`           | Homepage with hero, doctors, services, stats |
-| `about.html`       | `about-us`       | About page with history, mission, vision     |
-| `doctors.html`     | `our-doctors`    | Full doctors list with filter by department  |
-| `services.html`    | `our-services`   | All medical services and departments         |
-| `appointment.html` | `appointment`    | Appointment booking form with contact info   |
+---
 
-## How to Add Pages to ERPNext
+## 📁 Files in This Folder
 
-### Step 1: Access ERPNext Web Page
+### ✅ DYNAMIC Files (USE THESE!)
 
-1. Login to ERPNext at `http://147.93.153.249:8081`
-2. Go to **Website > Web Page** (`/app/web-page`)
-3. Click **+ Add Web Page**
+These files fetch data **automatically** from your ERPNext database:
 
-### Step 2: Create Each Page
+| File                       | Route          | Description                   | What's Dynamic                          |
+| -------------------------- | -------------- | ----------------------------- | --------------------------------------- |
+| `home-dynamic.html`        | `home`         | Homepage with hero section    | Stats, doctors, departments auto-update |
+| `doctors-dynamic.html`     | `our-doctors`  | Doctors listing with photos   | Fetches all Healthcare Practitioners    |
+| `services-dynamic.html`    | `our-services` | Departments and facilities    | Fetches all Medical Departments         |
+| `appointment-dynamic.html` | `appointment`  | Booking page with login check | Shows user status, dynamic departments  |
 
-For each HTML file:
+### ❌ OLD Static Files (DON'T USE)
 
-1. **Title**: Enter page title (e.g., "Home", "About Us")
-2. **Route**: Enter route name (e.g., "home", "about-us")
-3. **Content Type**: Select **HTML**
-4. **Main Section**: Copy-paste the entire HTML content
-5. Click **Save**
-6. Check **Published** checkbox
-7. Click **Save** again
+These have hardcoded data and won't update:
 
-### Step 3: Set Homepage
+- `home.html` - Old static version
+- `doctors.html` - Hardcoded doctor data
+- `services.html` - Hardcoded departments
+- `appointment.html` - Static form
+- `about.html` - About page (can still use if needed)
 
-1. Go to **Settings > Website Settings** (`/app/website-settings`)
-2. Set **Home Page** to: `home`
-3. Save
+---
 
-### Step 4: Configure Navbar
+## 🚀 Quick Start (5 Minutes)
 
-1. In Website Settings, scroll to **Top Bar Items**
-2. Add navigation items:
+### Step 1: Login to ERPNext
+
+```
+URL: http://147.93.153.249:8081/
+Username: Administrator
+Password: admin
+```
+
+### Step 2: Add Your Data First!
+
+Before creating web pages, add this data:
+
+1. **Add Departments**: `/app/medical-department`
+   - Add: Cardiology, Neurology, Pediatrics, etc.
+
+2. **Add Doctors**: `/app/healthcare-practitioner`
+   - Fill name, department, designation
+   - **Upload photo** (important!)
+   - Create User account for login
+   - Add at least 3-4 doctors
+
+3. **Add Schedules**: `/app/practitioner-schedule`
+   - Create schedules for each doctor
+
+### Step 3: Create Web Pages
+
+1. Go to: `/app/web-page`
+2. Click **+ Add Web Page**
+3. For EACH page:
+
+**Home Page:**
+
+```
+Title: Home
+Route: home
+Content Type: HTML
+Published: ☑
+Main Section: [Copy content from home-dynamic.html]
+```
+
+**Doctors Page:**
+
+```
+Title: Our Doctors
+Route: our-doctors
+Content Type: HTML
+Published: ☑
+Main Section: [Copy content from doctors-dynamic.html]
+```
+
+**Services Page:**
+
+```
+Title: Our Services
+Route: our-services
+Content Type: HTML
+Published: ☑
+Main Section: [Copy content from services-dynamic.html]
+```
+
+**Appointment Page:**
+
+```
+Title: Book Appointment
+Route: appointment
+Content Type: HTML
+Published: ☑
+Main Section: [Copy content from appointment-dynamic.html]
+```
+
+### Step 4: Configure Navigation
+
+1. Go to: `/app/website-settings`
+2. Set **Home Page**: `home`
+3. In **Top Bar Items**, add:
    - Home → `/home`
-   - About Us → `/about-us`
    - Our Doctors → `/our-doctors`
-   - Our Services → `/our-services`
-   - Appointment → `/appointment`
+   - Services → `/our-services`
+   - Book Appointment → `/appointment`
+   - Login → `/login` (check "Right")
+4. Click **Save**
+
+---
+
+## 🎯 What Makes These Dynamic?
+
+### Before (Static Files)
+
+```html
+<!-- Old way - hardcoded -->
+<div class="doctor-card">
+  <h3>Dr. John Doe</h3>
+  <p>Cardiologist</p>
+</div>
+```
+
+### After (Dynamic Files)
+
+```html
+<!-- New way - fetches from database -->
+{% set doctors = frappe.get_all('Healthcare Practitioner', fields=['name',
+'practitioner_name', 'department', 'image']) %} {% for doc in doctors %}
+<div class="doctor-card">
+  <img src="{{ doc.image }}" />
+  <h3>{{ doc.practitioner_name }}</h3>
+  <p>{{ doc.department }}</p>
+</div>
+{% endfor %}
+```
+
+**Result**: When you add a new doctor in ERPNext, they automatically appear on the website!
+
+---
+
+## ✅ What Updates Automatically
+
+| Page            | What's Dynamic                                                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Home**        | ✅ Doctor count<br>✅ Patient count<br>✅ Department count<br>✅ Featured doctors with photos<br>✅ Department list                   |
+| **Doctors**     | ✅ All Healthcare Practitioners<br>✅ Photos from database<br>✅ Department filter<br>✅ Consulting fees<br>✅ Book appointment links |
+| **Services**    | ✅ All Medical Departments<br>✅ Doctor count per department<br>✅ Live statistics<br>✅ Appointment counts                           |
+| **Appointment** | ✅ Login status detection<br>✅ User name display<br>✅ Department quick links<br>✅ Redirect to booking system                       |
+
+---
+
+## 🔧 Troubleshooting
+
+### Issue: Pages show "No doctors listed"
+
+**Solution**: Add Healthcare Practitioners at `/app/healthcare-practitioner`
+
+### Issue: Photos not showing
+
+**Solution**: Upload images in Healthcare Practitioner records (Image field)
+
+### Issue: Department filter empty
+
+**Solution**: Add Medical Departments at `/app/medical-department`
+
+### Issue: Can't book appointment
+
+**Solution**:
+
+1. Enable patient registration in Healthcare Settings
+2. Create practitioner schedules
+3. Link user to patient record
+
+---
+
+## 📖 Full Documentation
+
+For complete setup instructions, see:
+
+- **`COMPLETE_SETUP_GUIDE.md`** - Detailed step-by-step guide
+- **`PATIENT_DOCTOR_PORTAL_GUIDE.md`** - User workflow guide
+- **`IMPLEMENTATION_CHECKLIST.md`** - Quick checklist
+
+---
+
+## 🎨 Customization
+
+### Change Colors
+
+Find `#0d6efd` in CSS and replace with your brand color:
+
+```css
+background: #0d6efd; /* Change to your color */
+```
+
+### Add Custom Fields
+
+In Jinja queries, add more fields:
+
+```html
+{% set doctors = frappe.get_all('Healthcare Practitioner', fields=['name',
+'practitioner_name', 'department', 'image', 'phone', 'email']) %}
+```
+
+---
+
+## 🚀 Going Live Checklist
+
+- [ ] Added at least 5 departments
+- [ ] Added at least 3 doctors with photos
+- [ ] Created schedules for all doctors
+- [ ] Created all 4 web pages with dynamic HTML
+- [ ] Set home as homepage in Website Settings
+- [ ] Configured navigation menu
+- [ ] Tested patient registration
+- [ ] Tested appointment booking
+- [ ] Tested doctor login
+
+---
+
+## 📱 Mobile Responsive
+
+All pages are mobile-friendly and tested on:
+
+- iPhone (Safari)
+- Android (Chrome)
+- iPad (Safari)
+- Desktop (Chrome, Firefox, Edge)
+
+---
+
+**Need Help?** Read the complete guides in the parent folder! 🎉
 
 ## Installing Healthcare Module
 
