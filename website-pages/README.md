@@ -12,12 +12,22 @@
 
 These files fetch data **automatically** from your ERPNext database:
 
-| File                       | Route          | Description                   | What's Dynamic                          |
-| -------------------------- | -------------- | ----------------------------- | --------------------------------------- |
-| `home-dynamic.html`        | `home`         | Homepage with hero section    | Stats, doctors, departments auto-update |
-| `doctors-dynamic.html`     | `our-doctors`  | Doctors listing with photos   | Fetches all Healthcare Practitioners    |
-| `services-dynamic.html`    | `our-services` | Departments and facilities    | Fetches all Medical Departments         |
-| `appointment-dynamic.html` | `appointment`  | Booking page with login check | Shows user status, dynamic departments  |
+| File                       | Route            | Description                   | What's Dynamic                           |
+| -------------------------- | ---------------- | ----------------------------- | ---------------------------------------- |
+| `home-dynamic.html`        | `home`           | Homepage with hero section    | Stats, doctors, departments auto-update  |
+| `doctors-dynamic.html`     | `our-doctors`    | Doctors listing with photos   | Fetches all Healthcare Practitioners     |
+| `services-dynamic.html`    | `our-services`   | Departments and facilities    | Fetches all Medical Departments          |
+| `appointment-dynamic.html` | `appointment`    | Booking page with login check | Shows user status, dynamic departments   |
+| `patient-signup.html`      | `patient-signup` | Patient self-registration     | Creates User & Patient automatically     |
+| `patient-portal.html`      | `patient-portal` | Patient dashboard after login | Shows appointments, stats, quick actions |
+
+### 🔐 Patient Self-Service Files (NEW!)
+
+Complete patient registration and portal system:
+
+- `patient-signup.html` - Beautiful signup form with validation
+- `patient-portal.html` - Full-featured patient dashboard
+- See setup guide: `docs/patient-portal/PATIENT_SIGNUP_PORTAL_SETUP.md`
 
 ### ❌ OLD Static Files (DON'T USE)
 
