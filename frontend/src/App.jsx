@@ -22,6 +22,7 @@ import Appointments from "./pages/portal/Appointments";
 import BookAppointment from "./pages/portal/BookAppointment";
 import MedicalRecords from "./pages/portal/MedicalRecords";
 import Prescriptions from "./pages/portal/Prescriptions";
+import MedicalHistory from "./pages/portal/MedicalHistory";
 import Profile from "./pages/portal/Profile";
 
 // Not Found
@@ -57,6 +58,7 @@ function App() {
             path="book-appointment/:doctorId"
             element={<BookAppointment />}
           />
+          <Route path="medical-history" element={<MedicalHistory />} />
           <Route path="medical-records" element={<MedicalRecords />} />
           <Route path="prescriptions" element={<Prescriptions />} />
           <Route path="profile" element={<Profile />} />

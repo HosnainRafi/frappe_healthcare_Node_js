@@ -53,6 +53,10 @@ export const patientAPI = {
   getMedicalRecords: () => api.get("/patients/medical-records"),
   getPrescriptions: () => api.get("/patients/prescriptions"),
   getLabResults: () => api.get("/patients/lab-results"),
+  getMedicalHistory: () => api.get("/patients/medical-history"),
+  addMedicalHistory: (data) => api.post("/patients/medical-history", data),
+  deleteMedicalHistory: (id) => api.delete(`/patients/medical-history/${id}`),
+  getVitalSigns: () => api.get("/patients/vital-signs"),
   deleteAccount: () => api.delete("/patients/account"),
 };
 

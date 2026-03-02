@@ -7,6 +7,7 @@ import {
   FiClipboard,
   FiUser,
   FiSettings,
+  FiActivity,
 } from "react-icons/fi";
 
 function PortalSidebar() {
@@ -33,6 +34,11 @@ function PortalSidebar() {
         <NavLink to="/portal/book-appointment" className={linkClass}>
           <FiPlusCircle size={20} />
           <span>Book Appointment</span>
+        </NavLink>
+
+        <NavLink to="/portal/medical-history" className={linkClass}>
+          <FiActivity size={20} />
+          <span>Medical History</span>
         </NavLink>
 
         <NavLink to="/portal/medical-records" className={linkClass}>
