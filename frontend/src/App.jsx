@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Doctors from "./pages/Doctors";
 import DoctorDetail from "./pages/DoctorDetail";
 import Services from "./pages/Services";
+import Appointment from "./pages/Appointment";
 
 // Auth Pages
 import Login from "./pages/auth/Login";
@@ -29,6 +30,9 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <Routes>
+      {/* Standalone Appointment Page (has its own layout) */}
+      <Route path="appointment" element={<Appointment />} />
+
       {/* Public Routes */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />

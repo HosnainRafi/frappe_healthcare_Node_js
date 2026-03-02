@@ -55,6 +55,9 @@ function Header() {
             <NavLink to="/doctors" className={navLinkClass}>
               Doctors
             </NavLink>
+            <NavLink to="/appointment" className={navLinkClass}>
+              Appointment
+            </NavLink>
             <NavLink to="/contact" className={navLinkClass}>
               Contact
             </NavLink>
@@ -161,6 +164,13 @@ function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Doctors
+              </NavLink>
+              <NavLink
+                to="/appointment"
+                className={navLinkClass}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Appointment
               </NavLink>
               <NavLink
                 to="/contact"
