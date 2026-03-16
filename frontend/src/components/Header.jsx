@@ -34,10 +34,13 @@ function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">H+</span>
+              <span className="text-white font-bold text-lg">HCH</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">
-              HealthCare Plus
+            <span className="text-xl font-bold text-gray-900 hidden sm:inline">
+              Hemayetpur Central Hospital
+            </span>
+            <span className="text-xl font-bold text-gray-900 sm:hidden">
+              HCH
             </span>
           </Link>
 

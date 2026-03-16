@@ -7,6 +7,7 @@ import {
   FiUser,
   FiFileText,
   FiCheckCircle,
+  FiGrid,
 } from "react-icons/fi";
 import { doctorAPI, appointmentAPI } from "../../services/api";
 import toast from "react-hot-toast";
@@ -15,11 +16,14 @@ function BookAppointment() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [slots, setSlots] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingDepartments, setLoadingDepartments] = useState(true);
+  const [loadingDoctors, setLoadingDoctors] = useState(false);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -32,16 +36,29 @@ function BookAppointment() {
   } = useForm();
 
   useEffect(() => {
-    fetchDoctors();
+    fetchDepartments();
   }, []);
 
+  // When department changes, fetch doctors for that department
+  useEffect(() => {
+    if (selectedDepartment) {
+      fetchDoctors(selectedDepartment);
+    } else {
+      setDoctors([]);
+    }
+    setSelectedDoctor(null);
+    setSelectedDate("");
+    setSelectedSlot(null);
+  }, [selectedDepartment]);
+
+  // Handle pre-selected doctor from URL
   useEffect(() => {
     const doctorParam = searchParams.get("doctor");
     if (doctorParam && doctors.length > 0) {
       const doctor = doctors.find((d) => d.name === doctorParam);
       if (doctor) {
         setSelectedDoctor(doctor);
-        setStep(2);
+        setStep(3);
       }
     }
   }, [searchParams, doctors]);
@@ -52,56 +69,28 @@ function BookAppointment() {
     }
   }, [selectedDoctor, selectedDate]);
 
-  const fetchDoctors = async () => {
+  const fetchDepartments = async () => {
     try {
-      const response = await doctorAPI.getAll();
-      const doctorList = response.data.data || [];
-      setDoctors(doctorList);
+      const response = await doctorAPI.getDepartments();
+      setDepartments(response.data.data || []);
+    } catch (error) {
+      console.error("Failed to fetch departments:", error);
+      toast.error("Failed to load departments");
+    } finally {
+      setLoadingDepartments(false);
+    }
+  };
 
-      // If no doctors from API, use mock data
-      if (doctorList.length === 0) {
-        setDoctors([
-          {
-            id: "dr-sarah",
-            name: "Dr. Sarah Johnson",
-            department: "Cardiology",
-          },
-          {
-            id: "dr-michael",
-            name: "Dr. Michael Chen",
-            department: "Neurology",
-          },
-          {
-            id: "dr-emily",
-            name: "Dr. Emily Williams",
-            department: "Pediatrics",
-          },
-          {
-            id: "dr-james",
-            name: "Dr. James Anderson",
-            department: "Orthopedics",
-          },
-        ]);
-      }
+  const fetchDoctors = async (department) => {
+    setLoadingDoctors(true);
+    try {
+      const response = await doctorAPI.getAll({ department });
+      setDoctors(response.data.data || []);
     } catch (error) {
       console.error("Failed to fetch doctors:", error);
-      // Use mock data on error
-      setDoctors([
-        { id: "dr-sarah", name: "Dr. Sarah Johnson", department: "Cardiology" },
-        { id: "dr-michael", name: "Dr. Michael Chen", department: "Neurology" },
-        {
-          id: "dr-emily",
-          name: "Dr. Emily Williams",
-          department: "Pediatrics",
-        },
-        {
-          id: "dr-james",
-          name: "Dr. James Anderson",
-          department: "Orthopedics",
-        },
-      ]);
+      toast.error("Failed to load doctors");
     } finally {
-      setLoading(false);
+      setLoadingDoctors(false);
     }
   };
 
@@ -115,22 +104,8 @@ function BookAppointment() {
       setSlots(response.data.data || []);
     } catch (error) {
       console.error("Failed to fetch slots:", error);
-      // Generate mock slots
-      const mockSlots = [];
-      for (let hour = 9; hour <= 17; hour++) {
-        if (hour !== 13) {
-          // Skip lunch hour
-          mockSlots.push({
-            time: `${hour.toString().padStart(2, "0")}:00`,
-            available: Math.random() > 0.3,
-          });
-          mockSlots.push({
-            time: `${hour.toString().padStart(2, "0")}:30`,
-            available: Math.random() > 0.3,
-          });
-        }
-      }
-      setSlots(mockSlots);
+      toast.error("Failed to load available time slots");
+      setSlots([]);
     } finally {
       setLoadingSlots(false);
     }
@@ -202,6 +177,7 @@ function BookAppointment() {
             onClick={() => {
               setIsBooked(false);
               setStep(1);
+              setSelectedDepartment("");
               setSelectedDoctor(null);
               setSelectedDate("");
               setSelectedSlot(null);
@@ -227,9 +203,10 @@ function BookAppointment() {
       {/* Progress Steps */}
       <div className="flex items-center justify-center mb-8">
         {[
-          { num: 1, label: "Select Doctor" },
-          { num: 2, label: "Choose Date & Time" },
-          { num: 3, label: "Confirm" },
+          { num: 1, label: "Department" },
+          { num: 2, label: "Select Doctor" },
+          { num: 3, label: "Date & Time" },
+          { num: 4, label: "Confirm" },
         ].map((s, i) => (
           <div key={s.num} className="flex items-center">
             <div className="flex flex-col items-center">
@@ -246,22 +223,84 @@ function BookAppointment() {
               </div>
               <span className="text-xs mt-1 text-gray-600">{s.label}</span>
             </div>
-            {i < 2 && (
+            {i < 3 && (
               <div
-                className={`w-20 h-1 mx-2 ${step > s.num ? "bg-green-500" : "bg-gray-200"}`}
+                className={`w-16 h-1 mx-2 ${step > s.num ? "bg-green-500" : "bg-gray-200"}`}
               />
             )}
           </div>
         ))}
       </div>
 
-      {/* Step 1: Select Doctor */}
+      {/* Step 1: Select Department */}
       {step === 1 && (
         <div className="card p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            Select a Doctor
+            <FiGrid className="inline mr-2" />
+            Select a Department
           </h2>
-          {loading ? (
+          {loadingDepartments ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {[1, 2, 3, 4].map((n) => (
+                <div key={n} className="p-4 border rounded-lg animate-pulse">
+                  <div className="h-5 bg-gray-200 rounded w-3/4" />
+                </div>
+              ))}
+            </div>
+          ) : departments.length === 0 ? (
+            <p className="text-gray-600 text-center py-4">
+              No departments available.
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-4">
+              {departments.map((dept, index) => {
+                const name =
+                  typeof dept === "string"
+                    ? dept
+                    : dept.name || dept.department;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedDepartment(name);
+                      setStep(2);
+                    }}
+                    className={`p-4 border-2 rounded-lg text-left hover:border-primary-500 transition-colors ${
+                      selectedDepartment === name
+                        ? "border-primary-500 bg-primary-50"
+                        : "border-gray-200"
+                    }`}
+                  >
+                    <h3 className="font-semibold text-gray-900">{name}</h3>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Step 2: Select Doctor */}
+      {step === 2 && (
+        <div className="card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Select a Doctor
+            </h2>
+            <button
+              onClick={() => setStep(1)}
+              className="text-sm text-primary-600 hover:text-primary-700"
+            >
+              Change Department
+            </button>
+          </div>
+
+          <div className="p-3 bg-gray-50 rounded-lg mb-4">
+            <p className="text-sm text-gray-600">Department</p>
+            <p className="font-semibold text-gray-900">{selectedDepartment}</p>
+          </div>
+
+          {loadingDoctors ? (
             <div className="grid md:grid-cols-2 gap-4">
               {[1, 2, 3, 4].map((n) => (
                 <div key={n} className="p-4 border rounded-lg animate-pulse">
@@ -271,6 +310,10 @@ function BookAppointment() {
                 </div>
               ))}
             </div>
+          ) : doctors.length === 0 ? (
+            <p className="text-gray-600 text-center py-4">
+              No doctors available in this department.
+            </p>
           ) : (
             <div className="grid md:grid-cols-2 gap-4">
               {doctors.map((doctor, index) => (
@@ -278,7 +321,7 @@ function BookAppointment() {
                   key={index}
                   onClick={() => {
                     setSelectedDoctor(doctor);
-                    setStep(2);
+                    setStep(3);
                   }}
                   className={`p-4 border-2 rounded-lg text-left hover:border-primary-500 transition-colors ${
                     selectedDoctor?.name === doctor.name
@@ -287,8 +330,16 @@ function BookAppointment() {
                   }`}
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-                      <FiUser className="w-8 h-8 text-primary-600" />
+                    <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      {doctor.image ? (
+                        <img
+                          src={doctor.image}
+                          alt={doctor.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                      ) : (
+                        <FiUser className="w-8 h-8 text-primary-600" />
+                      )}
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">
@@ -303,18 +354,24 @@ function BookAppointment() {
               ))}
             </div>
           )}
+
+          <div className="mt-6">
+            <button onClick={() => setStep(1)} className="btn-outline">
+              Back
+            </button>
+          </div>
         </div>
       )}
 
-      {/* Step 2: Select Date & Time */}
-      {step === 2 && (
+      {/* Step 3: Select Date & Time */}
+      {step === 3 && (
         <div className="card p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">
               Select Date & Time
             </h2>
             <button
-              onClick={() => setStep(1)}
+              onClick={() => setStep(2)}
               className="text-sm text-primary-600 hover:text-primary-700"
             >
               Change Doctor
@@ -387,11 +444,11 @@ function BookAppointment() {
           )}
 
           <div className="mt-6 flex justify-between">
-            <button onClick={() => setStep(1)} className="btn-outline">
+            <button onClick={() => setStep(2)} className="btn-outline">
               Back
             </button>
             <button
-              onClick={() => selectedSlot && setStep(3)}
+              onClick={() => selectedSlot && setStep(4)}
               disabled={!selectedSlot}
               className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -401,8 +458,8 @@ function BookAppointment() {
         </div>
       )}
 
-      {/* Step 3: Confirm */}
-      {step === 3 && (
+      {/* Step 4: Confirm */}
+      {step === 4 && (
         <div className="card p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Confirm Appointment
@@ -462,7 +519,7 @@ function BookAppointment() {
             <div className="flex justify-between">
               <button
                 type="button"
-                onClick={() => setStep(2)}
+                onClick={() => setStep(3)}
                 className="btn-outline"
               >
                 Back

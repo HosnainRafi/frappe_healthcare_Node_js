@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   backend:
     image: frappe/erpnext:v15
@@ -17,7 +15,7 @@ services:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
       - apps:/home/frappe/frappe-bench/apps
-      - ./frappe_extensions:/home/frappe/frappe-bench/frappe_extensions
+      # - ./frappe_extensions:/home/frappe/frappe-bench/frappe_extensions  # Commented out due to WSL2 mount issues
     environment:
       - NODEJS_WEBHOOK_URL=http://nodejs-backend:3000/webhook
     depends_on:
@@ -93,7 +91,28 @@ services:
           fi
         done;
         echo "sites/common_site_config.json found";
-        bench new-site --no-mariadb-socket --mariadb-root-password=123 --admin-password=admin --install-app erpnext frontend;
+        if [ ! -d apps/healthcare ]; then
+          echo "Healthcare app not found, downloading...";
+          bench get-app --branch version-15 https://github.com/frappe/health;
+        else
+          cd apps/healthcare;
+          current_branch=$(git rev-parse --abbrev-ref HEAD);
+          if [ "$current_branch" != "version-15" ]; then
+            echo "Healthcare on wrong branch ($current_branch), switching to version-15...";
+            git fetch upstream version-15 2>/dev/null || git fetch origin version-15 2>/dev/null;
+            git checkout version-15;
+          fi;
+          cd /home/frappe/frappe-bench;
+          pip install -q -e apps/healthcare;
+        fi;
+        if [ -d sites/frontend ]; then
+          echo "Site frontend already exists, checking healthcare installation...";
+          bench --site frontend install-app healthcare 2>/dev/null || echo "Healthcare app already installed";
+          bench --site frontend migrate;
+        else
+          bench new-site --mariadb-user-host-login-scope='%' --mariadb-root-password=123 --admin-password=admin --install-app erpnext frontend;
+          bench --site frontend install-app healthcare;
+        fi;
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -278,8 +297,9 @@ services:
       - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
       - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER:-}
     volumes:
-      - ./nodejs-backend/src:/app/src
-      - ./nodejs-backend/uploads:/app/uploads
+      # Commented out due to WSL2 mount issues - using built-in files instead
+      # - ./nodejs-backend/src:/app/src
+      # - ./nodejs-backend/uploads:/app/uploads
       - nodejs-logs:/app/logs
     depends_on:
       postgres:
@@ -303,10 +323,7 @@ services:
       - "5173:5173"
     environment:
       - VITE_API_URL=http://localhost:3000/api
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-      - ./frontend/index.html:/app/index.html
+    # volumes commented out due to WSL2 mount issues - using built-in files instead
     depends_on:
       - nodejs-backend
     restart: unless-stopped

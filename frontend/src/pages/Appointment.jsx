@@ -13,9 +13,9 @@ import {
   FiArrowRight,
   FiEye,
   FiEyeOff,
-  FiHeart,
   FiActivity,
   FiStar,
+  FiGrid,
 } from "react-icons/fi";
 import { doctorAPI, appointmentAPI } from "../services/api";
 import useAuthStore from "../store/authStore";
@@ -32,11 +32,14 @@ function Appointment() {
   } = useAuthStore();
 
   const [step, setStep] = useState(1);
+  const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [slots, setSlots] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingDepartments, setLoadingDepartments] = useState(true);
+  const [loadingDoctors, setLoadingDoctors] = useState(false);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -54,8 +57,19 @@ function Appointment() {
   const password = watch("password");
 
   useEffect(() => {
-    fetchDoctors();
+    fetchDepartments();
   }, []);
+
+  useEffect(() => {
+    if (selectedDepartment) {
+      fetchDoctors(selectedDepartment);
+    } else {
+      setDoctors([]);
+    }
+    setSelectedDoctor(null);
+    setSelectedDate("");
+    setSelectedSlot(null);
+  }, [selectedDepartment]);
 
   useEffect(() => {
     if (selectedDoctor && selectedDate) {
@@ -63,78 +77,28 @@ function Appointment() {
     }
   }, [selectedDoctor, selectedDate]);
 
-  const fetchDoctors = async () => {
+  const fetchDepartments = async () => {
     try {
-      const response = await doctorAPI.getAll();
-      const doctorList = response.data.data || [];
-      setDoctors(doctorList);
+      const response = await doctorAPI.getDepartments();
+      setDepartments(response.data.data || []);
+    } catch (error) {
+      console.error("Failed to fetch departments:", error);
+      toast.error("Failed to load departments");
+    } finally {
+      setLoadingDepartments(false);
+    }
+  };
 
-      if (doctorList.length === 0) {
-        setDoctors([
-          {
-            id: "dr-sarah",
-            name: "Dr. Sarah Johnson",
-            department: "Cardiology",
-            experience: "15 years",
-            rating: 4.9,
-          },
-          {
-            id: "dr-michael",
-            name: "Dr. Michael Chen",
-            department: "Neurology",
-            experience: "12 years",
-            rating: 4.8,
-          },
-          {
-            id: "dr-emily",
-            name: "Dr. Emily Williams",
-            department: "Pediatrics",
-            experience: "10 years",
-            rating: 4.9,
-          },
-          {
-            id: "dr-james",
-            name: "Dr. James Anderson",
-            department: "Orthopedics",
-            experience: "18 years",
-            rating: 4.7,
-          },
-        ]);
-      }
+  const fetchDoctors = async (department) => {
+    setLoadingDoctors(true);
+    try {
+      const response = await doctorAPI.getAll({ department });
+      setDoctors(response.data.data || []);
     } catch (error) {
       console.error("Failed to fetch doctors:", error);
-      setDoctors([
-        {
-          id: "dr-sarah",
-          name: "Dr. Sarah Johnson",
-          department: "Cardiology",
-          experience: "15 years",
-          rating: 4.9,
-        },
-        {
-          id: "dr-michael",
-          name: "Dr. Michael Chen",
-          department: "Neurology",
-          experience: "12 years",
-          rating: 4.8,
-        },
-        {
-          id: "dr-emily",
-          name: "Dr. Emily Williams",
-          department: "Pediatrics",
-          experience: "10 years",
-          rating: 4.9,
-        },
-        {
-          id: "dr-james",
-          name: "Dr. James Anderson",
-          department: "Orthopedics",
-          experience: "18 years",
-          rating: 4.7,
-        },
-      ]);
+      toast.error("Failed to load doctors");
     } finally {
-      setLoading(false);
+      setLoadingDoctors(false);
     }
   };
 
@@ -148,20 +112,7 @@ function Appointment() {
       setSlots(response.data.data || []);
     } catch (error) {
       console.error("Failed to fetch slots:", error);
-      const mockSlots = [];
-      for (let hour = 9; hour <= 17; hour++) {
-        if (hour !== 13) {
-          mockSlots.push({
-            time: `${hour.toString().padStart(2, "0")}:00`,
-            available: Math.random() > 0.3,
-          });
-          mockSlots.push({
-            time: `${hour.toString().padStart(2, "0")}:30`,
-            available: Math.random() > 0.3,
-          });
-        }
-      }
-      setSlots(mockSlots);
+      setSlots([]);
     } finally {
       setLoadingSlots(false);
     }
@@ -185,6 +136,10 @@ function Appointment() {
     const maxDate = new Date();
     maxDate.setMonth(maxDate.getMonth() + 2);
     return maxDate.toISOString().split("T")[0];
+  };
+
+  const handleDepartmentChange = (e) => {
+    setSelectedDepartment(e.target.value);
   };
 
   const handleDoctorSelect = (doctor) => {
@@ -258,6 +213,7 @@ function Appointment() {
           selectedDoctor.name || selectedDoctor.practitioner_name,
         appointment_date: selectedDate,
         appointment_time: selectedSlot.time,
+        department: selectedDepartment,
         reason: data.reason || "",
         notes: data.notes || "",
       };
@@ -267,6 +223,7 @@ function Appointment() {
       setBookedAppointment({
         id: bookedData.name || bookedData.id || `APT-${Date.now()}`,
         doctorName: selectedDoctor.name || selectedDoctor.practitioner_name,
+        department: selectedDepartment,
         date: selectedDate,
         time: selectedSlot.time,
       });
@@ -284,24 +241,29 @@ function Appointment() {
   };
 
   const goBack = () => {
-    if (step > 1) {
-      if (step === 4 && isAuthenticated) {
+    if (step === 2) {
+      setStep(1);
+    } else if (step === 3) {
+      setStep(2);
+    } else if (step === 4) {
+      if (isAuthenticated) {
         setStep(2);
       } else {
-        setStep(step - 1);
+        setStep(3);
       }
     }
   };
 
+  // Steps: 1=Doctor(with dept dropdown), 2=Schedule, 3=Auth(optional), 4=Confirm, 5=Success
   const stepLabels = isAuthenticated
-    ? ["Choose Doctor", "Schedule", "Confirm"]
-    : ["Choose Doctor", "Schedule", "Account", "Confirm"];
+    ? ["Doctor", "Schedule", "Confirm"]
+    : ["Doctor", "Schedule", "Account", "Confirm"];
 
   const currentStepIndex = (() => {
     if (isAuthenticated) {
-      if (step === 5) return 4;
+      if (step <= 2) return step;
       if (step === 4) return 3;
-      return step;
+      return 4;
     }
     return step === 5 ? 5 : step;
   })();
@@ -340,7 +302,7 @@ function Appointment() {
             </div>
             {index < stepLabels.length - 1 && (
               <div
-                className={`w-16 md:w-24 h-1 mx-2 rounded-full transition-all duration-300 ${
+                className={`w-12 md:w-20 h-1 mx-2 rounded-full transition-all duration-300 ${
                   currentStepIndex > index + 1
                     ? "bg-gradient-to-r from-green-400 to-emerald-500"
                     : "bg-gray-200"
@@ -418,7 +380,7 @@ function Appointment() {
     </button>
   );
 
-  // Step 1: Select Doctor
+  // Step 1: Select Department & Doctor
   const renderDoctorSelection = () => (
     <div className="space-y-8 animate-fadeIn">
       <div className="text-center">
@@ -427,20 +389,80 @@ function Appointment() {
         </div>
         <h2 className="text-3xl font-bold text-gray-900">Choose Your Doctor</h2>
         <p className="text-gray-500 mt-2 max-w-md mx-auto">
-          Select from our expert medical professionals for your appointment
+          Select a department and then choose a doctor
         </p>
       </div>
 
-      {loading ? (
-        <div className="flex flex-col items-center justify-center py-16">
-          <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-500">Loading doctors...</p>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {doctors.map((doctor) => (
-            <DoctorCard key={doctor.id || doctor.name} doctor={doctor} />
-          ))}
+      {/* Department Dropdown */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <label className="flex items-center text-sm font-semibold text-gray-700 mb-3">
+          <FiGrid className="mr-2 text-primary-500" />
+          Select Department
+        </label>
+        {loadingDepartments ? (
+          <div className="flex items-center py-3">
+            <div className="w-5 h-5 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin mr-3"></div>
+            <span className="text-gray-500 text-sm">
+              Loading departments...
+            </span>
+          </div>
+        ) : (
+          <select
+            value={selectedDepartment}
+            onChange={handleDepartmentChange}
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all text-gray-700 font-medium bg-white"
+          >
+            <option value="">-- Choose a Department --</option>
+            {departments.map((dept) => {
+              const name =
+                typeof dept === "string" ? dept : dept.name || dept.department;
+              return (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              );
+            })}
+          </select>
+        )}
+      </div>
+
+      {/* Doctors List */}
+      {selectedDepartment && (
+        <>
+          {loadingDoctors ? (
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+              <p className="mt-4 text-gray-500">Loading doctors...</p>
+            </div>
+          ) : doctors.length === 0 ? (
+            <div className="text-center py-12">
+              <FiUser className="mx-auto text-4xl text-gray-300 mb-4" />
+              <p className="text-gray-500">
+                No doctors available in this department
+              </p>
+            </div>
+          ) : (
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                Doctors in{" "}
+                <span className="text-primary-600">{selectedDepartment}</span>
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {doctors.map((doctor) => (
+                  <DoctorCard key={doctor.id || doctor.name} doctor={doctor} />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {!selectedDepartment && !loadingDepartments && (
+        <div className="text-center py-12">
+          <FiGrid className="mx-auto text-4xl text-gray-200 mb-4" />
+          <p className="text-gray-400">
+            Select a department above to see available doctors
+          </p>
         </div>
       )}
     </div>
@@ -471,9 +493,7 @@ function Appointment() {
           <h4 className="font-semibold text-gray-900">
             {selectedDoctor?.name || selectedDoctor?.practitioner_name}
           </h4>
-          <p className="text-sm text-primary-600">
-            {selectedDoctor?.department || "General Practice"}
-          </p>
+          <p className="text-sm text-primary-600">{selectedDepartment}</p>
         </div>
         <button
           onClick={goBack}
@@ -589,6 +609,10 @@ function Appointment() {
             <span className="font-semibold">
               {selectedDoctor?.name || selectedDoctor?.practitioner_name}
             </span>
+          </div>
+          <div className="flex items-center text-sm text-primary-100">
+            <FiGrid className="mr-2" />
+            {selectedDepartment}
           </div>
           <div className="flex items-center text-sm text-primary-100">
             <FiCalendar className="mr-2" />
@@ -930,14 +954,22 @@ function Appointment() {
               <h3 className="font-bold text-xl">
                 {selectedDoctor?.name || selectedDoctor?.practitioner_name}
               </h3>
-              <p className="text-primary-100">
-                {selectedDoctor?.department || "General Practice"}
-              </p>
+              <p className="text-primary-100">{selectedDepartment}</p>
             </div>
           </div>
         </div>
 
         <div className="p-6 space-y-4">
+          <div className="flex items-center justify-between py-3 border-b border-gray-100">
+            <div className="flex items-center text-gray-500">
+              <FiGrid className="mr-3 text-primary-500" />
+              <span>Department</span>
+            </div>
+            <span className="font-semibold text-gray-900">
+              {selectedDepartment}
+            </span>
+          </div>
+
           <div className="flex items-center justify-between py-3 border-b border-gray-100">
             <div className="flex items-center text-gray-500">
               <FiCalendar className="mr-3 text-primary-500" />
@@ -1070,6 +1102,12 @@ function Appointment() {
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
+            <span className="text-gray-500">Department</span>
+            <span className="font-semibold text-gray-900">
+              {bookedAppointment?.department}
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-100">
             <span className="text-gray-500">Doctor</span>
             <span className="font-semibold text-gray-900">
               {bookedAppointment?.doctorName}
@@ -1114,33 +1152,7 @@ function Appointment() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary-50">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-lg border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow">
-              <FiHeart className="text-white" />
-            </div>
-            <span className="text-xl font-bold">
-              <span className="text-primary-600">HealthCare</span>
-              <span className="text-gray-800">Plus</span>
-            </span>
-          </Link>
-
-          {isAuthenticated && user && (
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                <FiUser className="text-primary-600 text-sm" />
-              </div>
-              <span className="text-sm font-medium text-gray-700 hidden sm:block">
-                {user.first_name || "Patient"}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className="min-h-[70vh] bg-gradient-to-br from-blue-50 via-white to-primary-50">
       {/* Main Content */}
       <div className="max-w-3xl mx-auto px-4 py-10">
         {step < 5 && <StepIndicator />}

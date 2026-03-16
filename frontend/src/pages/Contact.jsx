@@ -17,22 +17,25 @@ function Contact() {
     {
       icon: <FiMapPin className="w-6 h-6" />,
       title: "Address",
-      lines: ["123 Healthcare Ave", "Medical District, City 12345"],
+      lines: [
+        "Pranto Plaza, Hemayetpur Bus Stand",
+        "Hemayetpur, Savar, Dhaka 1240, Bangladesh",
+      ],
     },
     {
       icon: <FiPhone className="w-6 h-6" />,
       title: "Phone",
-      lines: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      lines: ["+8801839-952901", "Ambulance: 01617603261"],
     },
     {
       icon: <FiMail className="w-6 h-6" />,
       title: "Email",
-      lines: ["info@healthcareplus.com", "support@healthcareplus.com"],
+      lines: ["hemayetpurch@gmail.com"],
     },
     {
       icon: <FiClock className="w-6 h-6" />,
       title: "Working Hours",
-      lines: ["Mon - Fri: 8:00 AM - 8:00 PM", "Sat - Sun: 9:00 AM - 5:00 PM"],
+      lines: ["Every Day: 9:00 AM - 9:00 PM"],
     },
   ];
 
@@ -56,7 +59,7 @@ function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold">Contact Us</h1>
           <p className="mt-4 text-xl text-primary-100 max-w-2xl mx-auto">
-            Have questions? We're here to help. Reach out to us anytime.
+            Have questions? Reach out to Hemayetpur Central Hospital anytime.
           </p>
         </div>
       </section>
@@ -168,7 +171,7 @@ function Contact() {
                         type="tel"
                         {...register("phone")}
                         className="input-field"
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+880"
                       />
                     </div>
                   </div>
@@ -240,7 +243,7 @@ function Contact() {
       <section className="bg-gray-100">
         <div className="h-96 w-full">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9!2d90.4!3d23.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ4JzAwLjAiTiA5MMKwMjQnMDAuMCJF!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.2!2d90.3118!3d23.8063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c0d15e042d13%3A0x2b33f75d8cce816c!2sHemayetpur%20Bus%20Stand!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
             width="100%"
             height="100%"
             style={{ border: 0 }}

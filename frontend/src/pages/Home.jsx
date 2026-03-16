@@ -13,47 +13,47 @@ function Home() {
   const features = [
     {
       icon: <FiCalendar className="w-8 h-8" />,
-      title: "Easy Booking",
+      title: "Easy Appointment",
       description:
-        "Book appointments online in just a few clicks. Choose your preferred doctor and time slot.",
+        "Book appointments online or call us directly. Choose your preferred doctor and time slot.",
     },
     {
       icon: <FiUsers className="w-8 h-8" />,
-      title: "Expert Doctors",
+      title: "Certified Doctors",
       description:
-        "Our team of experienced healthcare professionals are dedicated to your wellbeing.",
+        "Our team of BCS cadre and certified specialist doctors are dedicated to your wellbeing.",
     },
     {
       icon: <FiClock className="w-8 h-8" />,
-      title: "24/7 Support",
+      title: "Modern Equipment",
       description:
-        "Round-the-clock medical support and emergency services available.",
+        "Advanced diagnostic and treatment facilities including endoscopy, ECG, and digital imaging.",
     },
     {
       icon: <FiShield className="w-8 h-8" />,
-      title: "Secure Records",
+      title: "Affordable Care",
       description:
-        "Your medical records are safely stored and accessible only to authorized personnel.",
+        "Quality healthcare at affordable prices, right in Hemayetpur — no need to travel to Dhaka.",
     },
   ];
 
   const services = [
-    {
-      name: "General Medicine",
-      description: "Comprehensive primary care for all ages",
-    },
-    { name: "Cardiology", description: "Heart and cardiovascular system care" },
+    { name: "Cardiology", description: "Heart and cardiovascular care" },
     { name: "Orthopedics", description: "Bone, joint, and muscle treatment" },
-    { name: "Pediatrics", description: "Specialized care for children" },
-    { name: "Dermatology", description: "Skin, hair, and nail care" },
     { name: "Neurology", description: "Brain and nervous system care" },
+    { name: "Medicine", description: "General and chronic illness treatment" },
+    { name: "Pulmonology", description: "Respiratory disease care" },
+    {
+      name: "Painless Normal Delivery",
+      description: "Safe and comfortable delivery services",
+    },
   ];
 
   const stats = [
-    { number: "50+", label: "Expert Doctors" },
-    { number: "10K+", label: "Happy Patients" },
-    { number: "15+", label: "Departments" },
-    { number: "24/7", label: "Emergency Care" },
+    { number: "15+", label: "Specialist Doctors" },
+    { number: "1000+", label: "Happy Patients" },
+    { number: "10+", label: "Departments" },
+    { number: "10+", label: "Years Experience" },
   ];
 
   return (
@@ -64,13 +64,16 @@ function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Your Health, <br />
-                <span className="text-primary-200">Our Priority</span>
+                Find the Best <br />
+                <span className="text-primary-200">
+                  Services for Your Health
+                </span>
               </h1>
               <p className="mt-6 text-lg text-primary-100 max-w-lg">
-                Experience world-class healthcare with compassionate doctors,
-                modern facilities, and personalized treatment plans tailored
-                just for you.
+                Hemayetpur Central Hospital provides modern, affordable, and
+                compassionate healthcare services including specialist
+                consultations, painless normal delivery, endoscopy, diagnostics,
+                and more — right in Hemayetpur.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <Link
@@ -132,10 +135,11 @@ function Home() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="section-title">Why Choose Us?</h2>
+            <h2 className="section-title">Why Choose HCH?</h2>
             <p className="section-subtitle max-w-2xl mx-auto">
-              We provide comprehensive healthcare services with a focus on
-              patient comfort and advanced medical care.
+              We combine expert medical professionals, modern equipment, and
+              compassionate care to ensure accurate diagnosis and effective
+              treatment.
             </p>
           </div>
 
@@ -203,11 +207,11 @@ function Home() {
       <section className="py-16 bg-primary-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Ready to Take Control of Your Health?
+            Have Certified Doctors and High Quality Services
           </h2>
           <p className="mt-4 text-primary-100 max-w-2xl mx-auto">
-            Book an appointment today and experience healthcare that puts you
-            first.
+            Book an appointment today and get the best treatment from our
+            specialized and certified doctors with modern facilities.
           </p>
           <div className="mt-8">
             <Link

@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Hospital DB (Docker)",
+      "Group": "Servers",
+      "Host": "localhost",
+      "Port": 5432,
+      "MaintenanceDB": "hospital_db",
+      "Username": "hospital_user",
+      "SSLMode": "prefer",
+      "PassFile": "",
+      "Comment": "Node.js PostgreSQL - hospital_pass"
+    }
+  }
+}

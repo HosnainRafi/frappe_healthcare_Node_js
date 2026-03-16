@@ -27,63 +27,6 @@ function Doctors() {
       setDoctors(response.data.data || []);
     } catch (error) {
       console.error("Failed to fetch doctors:", error);
-      // Show mock data if API fails
-      setDoctors([
-        {
-          name: "Dr. Sarah Johnson",
-          department: "Cardiology",
-          image:
-            "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop",
-          experience: "15 years",
-          rating: 4.8,
-          available: true,
-        },
-        {
-          name: "Dr. Michael Chen",
-          department: "Neurology",
-          image:
-            "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop",
-          experience: "12 years",
-          rating: 4.9,
-          available: true,
-        },
-        {
-          name: "Dr. Emily Williams",
-          department: "Pediatrics",
-          image:
-            "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop",
-          experience: "10 years",
-          rating: 4.7,
-          available: false,
-        },
-        {
-          name: "Dr. James Anderson",
-          department: "Orthopedics",
-          image:
-            "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop",
-          experience: "18 years",
-          rating: 4.9,
-          available: true,
-        },
-        {
-          name: "Dr. Lisa Martinez",
-          department: "Dermatology",
-          image:
-            "https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=300&h=300&fit=crop",
-          experience: "8 years",
-          rating: 4.6,
-          available: true,
-        },
-        {
-          name: "Dr. Robert Brown",
-          department: "General Medicine",
-          image:
-            "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=300&h=300&fit=crop",
-          experience: "20 years",
-          rating: 4.8,
-          available: true,
-        },
-      ]);
     } finally {
       setLoading(false);
     }
@@ -94,14 +37,7 @@ function Doctors() {
       const response = await doctorAPI.getSpecializations();
       setSpecializations(response.data.data || []);
     } catch (error) {
-      setSpecializations([
-        "Cardiology",
-        "Neurology",
-        "Pediatrics",
-        "Orthopedics",
-        "Dermatology",
-        "General Medicine",
-      ]);
+      console.error("Failed to fetch specializations:", error);
     }
   };
 
@@ -226,13 +162,13 @@ function Doctors() {
 
                     <div className="mt-6 flex gap-3">
                       <Link
-                        to={`/doctors/${doctor.name}`}
+                        to={`/doctors/${encodeURIComponent(doctor.id || doctor.name)}`}
                         className="flex-1 btn-outline text-center"
                       >
                         View Profile
                       </Link>
                       <Link
-                        to={`/portal/book-appointment?doctor=${encodeURIComponent(doctor.name)}`}
+                        to={`/portal/book-appointment?doctor=${encodeURIComponent(doctor.id || doctor.name)}`}
                         className="flex-1 btn-primary text-center flex items-center justify-center"
                       >
                         <FiCalendar className="mr-1" /> Book

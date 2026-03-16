@@ -31,9 +31,6 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <Routes>
-      {/* Standalone Appointment Page (has its own layout) */}
-      <Route path="appointment" element={<Appointment />} />
-
       {/* Public Routes */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -42,6 +39,7 @@ function App() {
         <Route path="doctors" element={<Doctors />} />
         <Route path="doctors/:id" element={<DoctorDetail />} />
         <Route path="services" element={<Services />} />
+        <Route path="appointment" element={<Appointment />} />
 
         {/* Auth Routes */}
         <Route path="login" element={<Login />} />

@@ -27,5 +27,5 @@ EXPOSE 3000
 # Health check script
 COPY healthcheck.js .
 
-# Start application
-CMD ["npm", "start"]
+# Start application - push schema to DB then start server
+CMD ["sh", "-c", "npx prisma db push --skip-generate && npm start"]

@@ -32,11 +32,11 @@ function About() {
   ];
 
   const milestones = [
-    { year: "2010", event: "Hospital Founded" },
-    { year: "2015", event: "Expanded to 100+ Beds" },
-    { year: "2018", event: "Launched Digital Health Records" },
-    { year: "2020", event: "Telemedicine Services Added" },
-    { year: "2023", event: "Patient Portal Launched" },
+    { year: "2016", event: "Hospital Founded in Hemayetpur" },
+    { year: "2018", event: "Expanded Specialist Departments" },
+    { year: "2020", event: "Launched Painless Normal Delivery Services" },
+    { year: "2022", event: "Introduced Endoscopy & Colonoscopy" },
+    { year: "2024", event: "Digital Patient Portal Launched" },
   ];
 
   return (
@@ -44,10 +44,10 @@ function About() {
       {/* Hero */}
       <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold">About Us</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">About HCH</h1>
           <p className="mt-4 text-xl text-primary-100 max-w-2xl mx-auto">
-            Providing exceptional healthcare services with compassion and
-            excellence since 2010.
+            Delivering ethical, patient-focused, and high-quality healthcare
+            services under one roof since 2016.
           </p>
         </div>
       </section>
@@ -61,21 +61,24 @@ function About() {
                 Our Story
               </h2>
               <p className="text-gray-600 mb-4">
-                HealthCare Plus was founded with a simple mission: to make
-                quality healthcare accessible to everyone. What started as a
-                small clinic has grown into a comprehensive healthcare facility
-                serving thousands of patients every year.
+                Hemayetpur Central Hospital was founded with a simple mission:
+                to make advanced medical treatment accessible to the people of
+                Hemayetpur without the need to travel to Dhaka or Savar. What
+                started as a small healthcare initiative has grown into a
+                comprehensive multispecialty hospital.
               </p>
               <p className="text-gray-600 mb-4">
-                Our team of dedicated healthcare professionals brings together
-                decades of experience across various medical specialties. We
-                believe in treating patients with dignity, respect, and the
-                highest level of medical care.
+                We combine expert medical professionals, modern equipment, and
+                compassionate care to ensure accurate diagnosis, effective
+                treatment, and patient satisfaction. From preventive care to
+                specialized treatments, we prioritize safety, comfort, and trust
+                at every step.
               </p>
               <p className="text-gray-600">
-                Today, we continue to innovate and expand our services to meet
-                the evolving healthcare needs of our community, while staying
-                true to our core values of compassion and excellence.
+                Today, Hemayetpur Central Hospital continuously works to improve
+                services, introduce new technologies, and maintain high
+                standards of care — serving thousands of patients with
+                dedication and integrity.
               </p>
             </div>
             <div>
@@ -101,10 +104,11 @@ function About() {
                 Our Mission
               </h3>
               <p className="text-gray-600">
-                To provide comprehensive, patient-centered healthcare services
-                that improve the quality of life for individuals and
-                communities. We strive to deliver care with compassion, respect,
-                and the highest standards of medical excellence.
+                To make advanced medical treatment accessible to the people of
+                Hemayetpur and surrounding areas. We strive to deliver ethical,
+                patient-focused healthcare with compassion, modern equipment,
+                and the highest standards of medical excellence — all under one
+                roof.
               </p>
             </div>
             <div className="card p-8">
@@ -115,10 +119,11 @@ function About() {
                 Our Vision
               </h3>
               <p className="text-gray-600">
-                To be the leading healthcare provider known for innovation,
-                exceptional patient outcomes, and community impact. We envision
-                a healthier world where everyone has access to quality medical
-                care and preventive health services.
+                To be the leading healthcare provider in Hemayetpur and Savar
+                region, known for affordable, compassionate, and high-quality
+                medical services. We envision a healthier community where
+                everyone has access to specialist care, modern diagnostics, and
+                preventive health services without traveling far.
               </p>
             </div>
           </div>
